@@ -1,0 +1,1321 @@
+/* ==========================================================================
+   LOCADORA — tema para UNIT3D (variante RETRÔ: pôster em estojo VHS gasto)
+   Moderno por fora, sexta-feira à noite na locadora por dentro:
+   prateleiras azul-marinho, letreiro de neon, etiquetas de fita VHS,
+   OSD de videocassete e um leve chiado de tubo CRT.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=VT323&display=swap');
+
+:root {
+  /* ---- Paleta Locadora ---- */
+  --lc-ink: #e9e6f7;
+  --lc-muted: #9d98c4;
+  --lc-neon-pink: #ff4f9a;
+  --lc-neon-cyan: #3ee6ff;
+  --lc-vhs-yellow: #ffc93c;
+  --lc-vhs-orange: #ff8a3d;
+  --lc-vhs-red: #ff5a4e;
+  --lc-green: #5ff2a0;
+  --lc-blue: #5aa9ff;
+  --lc-purple: #b58cff;
+  --lc-glass: rgba(18, 16, 48, .32);
+  --lc-line: rgba(126, 118, 214, .22);
+  --lc-radius: 10px;
+  --lc-poster-sticker: "72H";
+  --lc-label-stripe: linear-gradient(90deg,
+      var(--lc-vhs-red) 0 6px,
+      var(--lc-vhs-orange) 6px 12px,
+      var(--lc-vhs-yellow) 12px 18px,
+      transparent 18px);
+  --lc-glow-pink: 0 0 6px rgba(255, 79, 154, .7), 0 0 18px rgba(255, 79, 154, .35);
+  --lc-glow-cyan: 0 0 6px rgba(62, 230, 255, .7), 0 0 18px rgba(62, 230, 255, .3);
+  --lc-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --lc-font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --lc-font-osd: 'VT323', ui-monospace, monospace;
+
+  /* ---- Variáveis do tracker ---- */
+  --text-color: var(--lc-ink);
+  --color-dark-magenta: #b8327a;
+  --color-dark-green: #2f9e66;
+  --color-dark-blue: #2f5fb0;
+  --color-dark-red: #c23a33;
+  --color-red: var(--lc-vhs-red);
+  --color-light-red: #ff7c72;
+  --color-green: var(--lc-green);
+  --color-light-green: #8cf7bd;
+  --color-yellow: var(--lc-vhs-yellow);
+  --color-light-yellow: #ffd970;
+  --color-magenta: var(--lc-neon-pink);
+  --color-light-magenta: #ff7db5;
+  --color-dark-purple: #6a4fc0;
+  --color-purple: var(--lc-purple);
+  --color-light-purple: #cfb3ff;
+  --color-blue: var(--lc-blue);
+  --color-light-blue: #8cc4ff;
+  --color-bright-white: #ffffff;
+  --color-light-orange: var(--lc-vhs-orange);
+  --bg-0: #3b3878;
+  --bg-1: #1f1d4a;
+  --bg-2: #18163a;
+  --bg-3: #121030;
+  --bg-4: #0c0a22;
+  --bg-5: #070616;
+  --message-bubble-bg: #24215a;
+  --message-bubble-fg: currentColor;
+  --message-bubble-box-shadow: 0 2px 6px rgba(0, 0, 0, .35);
+  --message-bubble-border-radius: 16px;
+  --message-bubble-border: 1px solid var(--lc-line);
+  --message-bubble-avatar-border-radius: 50%;
+  --achievement-fg: inherit;
+  --achievement-bg: var(--bg-2);
+  --achievement-box-shadow: 0 4px 14px rgba(0, 0, 0, .35);
+  --achievement-progress-bg: var(--lc-vhs-yellow);
+  --alert-bg: var(--bg-3);
+  --alert-fg: var(--lc-ink);
+  --alert-gap-color: var(--lc-neon-pink);
+  --alert-gap-width: 2px;
+  --article-card-bg: var(--bg-2);
+  --article-card-fg: var(--lc-ink);
+  --article-card-head-fg: #fff;
+  --article-card-time-fg: var(--lc-muted);
+  --article-box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+  --bbcode-input-header-bg: var(--bg-3);
+  --bbcode-input-body-bg: var(--bg-3);
+  --bbcode-input-border: 1px solid var(--lc-line);
+  --bbcode-input-border-radius: 8px;
+  --bbcode-rendered-fg-default: var(--lc-ink);
+  --bbcode-rendered-fg-muted: var(--lc-muted);
+  --bbcode-rendered-fg-subtle: #5d58a0;
+  --bbcode-rendered-canvas-default: transparent;
+  --bbcode-rendered-canvas-subtle: #1a1840;
+  --bbcode-rendered-border-default: var(--bg-0);
+  --bbcode-rendered-border-muted: #2c2960;
+  --bbcode-rendered-neutral-muted: #3b387866;
+  --bbcode-rendered-accent-fg: var(--lc-neon-cyan);
+  --bbcode-rendered-accent-emphasis: #1f8fb0;
+  --bbcode-rendered-attention-subtle: var(--lc-purple);
+  --bbcode-rendered-danger-fg: var(--lc-vhs-red);
+  --bbcode-rendered-quote-bg: rgba(255, 201, 60, .06);
+  --bbcode-rendered-quote-border: var(--lc-vhs-yellow);
+  --body-bg: var(--bg-4);
+  --body-fg: var(--text-color);
+  --body-bg-secondary: var(--lc-glass);
+  --breadcrumb-fg: var(--lc-muted);
+  --breadcrumb-active-fg: var(--lc-vhs-yellow);
+  --breadcrumb-hover-fg: #fff;
+  --breadcrumb-inactive-text-decoration: none;
+  --button-filled-bg: var(--lc-vhs-yellow);
+  --button-filled-border: none;
+  --button-filled-border-radius: 8px;
+  --button-filled-fg: #1a1236;
+  --button-outlined-bg: transparent;
+  --button-outlined-border: 1px solid var(--lc-neon-cyan);
+  --button-outlined-border-radius: 8px;
+  --button-outlined-fg: var(--lc-neon-cyan);
+  --button-text-bg: inherit;
+  --button-text-border: none;
+  --button-text-border-radius: 8px;
+  --button-text-fg: currentColor;
+  --chatbox-message-bg: var(--bg-2);
+  --chatbox-button-fg: var(--lc-muted);
+  --chatbox-button-hover-fg: var(--lc-neon-cyan);
+  --chatbox-users-bg: var(--bg-3);
+  --chatbox-tab-delete-fg: var(--lc-vhs-red);
+  --chatbox-tab-delete-bg: var(--bg-0);
+  --comparison-divider-fg: #fff;
+  --comparison-button-fg: #fff;
+  --data-table-fg: var(--text-color);
+  --data-table-th-bg: var(--bg-4);
+  --data-table-thead-border: none;
+  --data-table-tr-border: 1px solid rgba(126, 118, 214, .12);
+  --data-table-tr-even-bg: rgba(255, 255, 255, .015);
+  --data-table-tr-hover-bg: rgba(62, 230, 255, .07);
+  --data-table-tr-odd-bg: transparent;
+  --data-table-tfoot-border: none;
+  --dialog-bg: var(--bg-2);
+  --dialog-border: 1px solid var(--lc-line);
+  --dialog-border-radius: 14px;
+  --dialog-box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+  --dialog-fg: var(--text-color);
+  --dialog-head-bg: var(--bg-5);
+  --dialog-head-fg: #fff;
+  --donation-border-color: var(--bg-0);
+  --donation-box-shadow-color: var(--bg-5);
+  --donation-primary-text-color: var(--lc-ink);
+  --donation-secondary-text-color: var(--lc-muted);
+  --donation-background-color: var(--bg-3);
+  --donation-price-days-color: var(--lc-vhs-yellow);
+  --donation-chart-daily-bg: rgba(62, 230, 255, .2);
+  --donation-chart-daily-border: rgba(62, 230, 255, 1);
+  --donation-chart-monthly-bg: rgba(255, 79, 154, .2);
+  --donation-chart-monthly-border: rgba(255, 79, 154, 1);
+  --fieldset-bg: inherit;
+  --fieldset-fg: var(--lc-ink);
+  --fieldset-border-radius: 8px;
+  --fieldset-border: 1px solid var(--lc-line);
+  --footer-bg: transparent;
+  --footer-hr-fg: var(--bg-0);
+  --icon-button-bg: inherit;
+  --icon-button-border: none;
+  --icon-button-border-radius: 9999px;
+  --icon-button-fg: currentColor;
+  --icon-button-filled-bg: var(--lc-vhs-yellow);
+  --icon-button-filled-fg: #1a1236;
+  --icon-button-filled-border: none;
+  --input-text-border: 1px solid var(--bg-0);
+  --input-text-border-active: 2px solid var(--lc-neon-cyan);
+  --input-text-border-error: 1px solid var(--lc-vhs-red);
+  --input-text-border-hover: 2px solid var(--lc-purple);
+  --input-text-border-radius: 8px;
+  --input-text-fg: var(--lc-ink);
+  --input-text-padding: 12px;
+  --input-text-padding-active: 11px;
+  --input-text-padding-hover: 11px;
+  --key-value-even-bg: rgba(255, 255, 255, .02);
+  --key-value-fg: var(--text-color);
+  --key-value-odd-bg: transparent;
+  --key-value-padding: 10px;
+  --label-bg: var(--bg-2);
+  --label-fg: var(--lc-muted);
+  --label-fg-active: var(--lc-neon-cyan);
+  --label-fg-error: var(--lc-vhs-red);
+  --label-fg-hover: var(--lc-purple);
+  --legend-fg: var(--lc-vhs-yellow);
+  --legend-bg: transparent;
+  --legend-border: none;
+  --legend-border-radius: 0;
+  --mediahub-card-bg: var(--bg-3);
+  --mediahub-card-fg: var(--lc-ink);
+  --mediahub-card-hover-fg: #fff;
+  --mediahub-card-border: 1px solid var(--lc-line);
+  --mediahub-card-border-radius: var(--lc-radius);
+  --mediahub-card-box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+  --meta-backdrop-filter: brightness(28%) saturate(120%);
+  --meta-dropdown-backdrop-filter: brightness(1.6) blur(10px);
+  --meta-dropdown-bg: rgba(31, 29, 74, .75);
+  --meta-dropdown-backdrop-filter-hover: brightness(1.8) blur(10px);
+  --meta-dropdown-hover-bg: rgba(62, 230, 255, .12);
+  --meta-dropdown-fg: var(--lc-ink);
+  --meta-dropdown-hover-fg: #fff;
+  --meta-description-fg: #ddd9f2;
+  --meta-id-tag-fg: #eee;
+  --meta-id-tag-bg: transparent;
+  --meta-id-tag-hover-fg: #fff;
+  --meta-id-tag-hover-bg: rgba(62, 230, 255, .14);
+  --meta-chips-heading-fg: var(--lc-vhs-yellow);
+  --meta-chip-icon-fg: #1a1236;
+  --meta-chip-icon-hover-bg: var(--lc-vhs-yellow);
+  --meta-chip-icon-bg: #d9d4f5;
+  --meta-chip-name-fg: #f1eefc;
+  --meta-chip-value-fg: var(--lc-muted);
+  --meta-chip-value-hover-fg: #fff;
+  --meta-chip-backdrop-filter-hover: brightness(1.8) blur(10px);
+  --meta-chip-hover-bg: rgba(62, 230, 255, .12);
+  --meter-fg: var(--lc-neon-cyan);
+  --meter-bg: var(--bg-0);
+  --notification-read: transparent;
+  --notification-unread: var(--lc-neon-pink);
+  --option-bg: var(--bg-2);
+  --option-fg: var(--lc-ink);
+  --paginate-bg: var(--bg-3);
+  --paginate-bg-hover: var(--bg-1);
+  --paginate-bg-current: var(--lc-vhs-yellow);
+  --paginate-fg: var(--lc-muted);
+  --paginate-fg-disabled: var(--bg-0);
+  --paginate-divider: var(--bg-1);
+  --panel-action-fg: var(--lc-muted);
+  --panel-border: 1px solid var(--lc-line);
+  --panel-bg: var(--bg-2);
+  --panel-fg: var(--text-color);
+  --panel-box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  --panel-border-radius: var(--lc-radius);
+  --panel-head-bg: var(--bg-4);
+  --panel-head-fg: #fff;
+  --playlist-card-bg: var(--bg-3);
+  --playlist-card-border: 1px solid var(--lc-line);
+  --playlist-card-border-radius: var(--lc-radius);
+  --playlist-card-box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+  --playlist-card-fg: var(--lc-ink);
+  --playlist-card-missing-image-bg: var(--bg-1);
+  --playlist-card-missing-image-fg: var(--lc-muted);
+  --prize-bg: var(--bg-3);
+  --prize-border-radius: var(--lc-radius);
+  --prize-border: 1px solid var(--lc-line);
+  --prize-box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+  --prize-fg: var(--lc-ink);
+  --prize-heading-fg: var(--lc-vhs-yellow);
+  --prize-icon-primary-color: var(--lc-green);
+  --prize-icon-secondary-color: #fff4d6;
+  --post-bg: var(--bg-2);
+  --post-fg: var(--lc-ink);
+  --post-shadow: none;
+  --post-head-fg: var(--text-color);
+  --post-head-bg: none;
+  --post-toolbar-bg: var(--bg-3);
+  --post-toolbar-fg: var(--lc-muted);
+  --post-toolbar-hover-bg: var(--bg-1);
+  --post-toolbar-hover-fg: #fff;
+  --post-like-fg: var(--lc-green);
+  --post-dislike-fg: var(--lc-vhs-red);
+  --post-aside-bg: var(--bg-3);
+  --post-aside-fg: var(--lc-ink);
+  --post-footer-fg: var(--lc-muted);
+  --quick-search-bg: var(--bg-3);
+  --quick-search-fg: var(--lc-ink);
+  --quick-search-border: 1px solid var(--lc-line);
+  --quick-search-border-radius: 10px;
+  --quick-search-box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
+  --quick-search-selector-fg: var(--lc-muted);
+  --quick-search-selector-hover-bg: var(--bg-1);
+  --quick-search-selector-hover-fg: #fff;
+  --quick-search-selector-selected-bg: var(--bg-4);
+  --quick-search-selector-selected-fg: var(--lc-vhs-yellow);
+  --quick-search-result-bg: var(--bg-2);
+  --quick-search-result-fg: var(--lc-ink);
+  --quick-search-result-hover-bg: var(--bg-1);
+  --quick-search-result-hover-fg: #fff;
+  --quick-search-result-image-border-radius: 4px;
+  --quick-search-result-year-fg: var(--lc-muted);
+  --quick-search-result-border: none;
+  --scrollbar-color: rgba(181, 140, 255, .28);
+  --secondary-nav-bg: var(--bg-3);
+  --secondary-nav-tab-fg: var(--lc-muted);
+  --secondary-nav-tab-bg: inherit;
+  --secondary-nav-tab-active-text-decoration: underline var(--lc-neon-pink) 3px;
+  --secondary-nav-tab-hover-fg: #fff;
+  --secondary-nav-tab-hover-bg: transparent;
+  --secondary-nav-tab-hover-text-decoration: underline var(--lc-neon-cyan) 3px;
+  --secondary-nav-tab-menu-bg: var(--bg-3);
+  --secondary-nav-tab-menu-fg: inherit;
+  --secondary-nav-tab-menu-border: 1px solid var(--lc-line);
+  --secondary-nav-tab-menu-border-radius: 10px;
+  --secondary-nav-tab-menu-box-shadow: 0 16px 40px rgba(0, 0, 0, .55);
+  --select-border: 1px solid var(--bg-0);
+  --select-border-active: 2px solid var(--lc-neon-cyan);
+  --select-border-error: 1px solid var(--lc-vhs-red);
+  --select-border-hover: 2px solid var(--lc-purple);
+  --select-border-radius: 8px;
+  --select-fg: var(--lc-ink);
+  --select-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%23ffc93c' d='M6 8l-1 1l5 5l5-5l-1-1l-4 4l-4-4z'/></svg>");
+  --select-padding: 11px 23px 11px 11px;
+  --select-padding-active: 10px 22px 10px 10px;
+  --select-padding-hover: 10px 22px 10px 10px;
+  --subforum-listing-odd-bg: rgba(255, 255, 255, .02);
+  --subforum-listing-even-bg: transparent;
+  --subforum-listing-border: none;
+  --textarea-border: 1px solid var(--bg-0);
+  --textarea-border-active: 2px solid var(--lc-neon-cyan);
+  --textarea-border-error: 1px solid var(--lc-vhs-red);
+  --textarea-border-hover: 2px solid var(--lc-purple);
+  --textarea-border-radius: 8px;
+  --textarea-fg: var(--lc-ink);
+  --textarea-padding: 12px;
+  --textarea-padding-active: 11px;
+  --textarea-padding-hover: 11px;
+  --top-nav-bg: transparent;
+  --top-nav-box-shadow: none;
+  --top-nav-dropdown-fg: var(--lc-ink);
+  --top-nav-dropdown-hover-fg: #fff;
+  --top-nav-dropdown-hover-bg: var(--bg-1);
+  --top-nav-dropdown-hover-text-decoration: none;
+  --top-nav-dropdown-menu-bg: var(--bg-3);
+  --top-nav-dropdown-menu-border: 1px solid var(--lc-line);
+  --top-nav-dropdown-menu-border-radius: 10px;
+  --top-nav-dropdown-menu-box-shadow: 0 16px 40px rgba(0, 0, 0, .55);
+  --top-nav-dropdown-menu-item-fg: var(--lc-ink);
+  --top-nav-dropdown-menu-item-bg: transparent;
+  --top-nav-dropdown-menu-item-hover-fg: #fff;
+  --top-nav-dropdown-menu-item-hover-bg: var(--bg-1);
+  --top-nav-dropdown-menu-item-hover-text-decoration: none;
+  --top-nav-dropdown-menu-item-icon-fg: var(--lc-vhs-yellow);
+  --top-nav-dropdown-menu-item-icon-bg: var(--bg-4);
+  --top-nav-ratio-bar-fg: var(--lc-ink);
+  --top-nav-icon-bar-icon-bg: var(--bg-2);
+  --top-nav-icon-bar-icon-fg: var(--lc-ink);
+  --top-nav-icon-bar-icon-border-radius: 50%;
+  --top-nav-icon-bar-icon-hover-bg: var(--bg-1);
+  --top-nav-icon-bar-icon-hover-fg: var(--lc-neon-cyan);
+  --top-nav-stats-fg: var(--lc-muted);
+  --top-nav-toggle-fg: var(--lc-vhs-yellow);
+  --torrent-card-bg: var(--bg-2);
+  --torrent-card-fg: var(--text-color);
+  --torrent-card-border: 1px solid var(--lc-line);
+  --torrent-card-head-bg: var(--bg-5);
+  --torrent-card-head-fg: #fff;
+  --torrent-card-link-fg: #fff;
+  --torrent-card-genre-fg: var(--lc-vhs-yellow);
+  --torrent-group-bg: var(--bg-3);
+  --torrent-group-header-bg: var(--bg-1);
+  --torrent-group-text: #fff;
+  --torrent-group-text-muted: var(--lc-muted);
+  --torrent-group-table-stripe-even: rgba(255, 255, 255, .02);
+  --torrent-group-table-stripe-odd: rgba(255, 255, 255, .045);
+  --torrent-group-hover-brightness-emphasis: 1.2;
+  --torrent-group-chip-border: rgba(126, 118, 214, .2);
+  --torrent-row-fg: var(--lc-ink);
+  --torrent-row-visited-fg: var(--lc-purple);
+  --torrent-row-sticky-bg: rgba(255, 201, 60, .06);
+  --torrent-row-format-fg: var(--lc-ink);
+  --torrent-row-format-bg: var(--bg-1);
+  --torrent-row-buttons-fg: currentColor;
+  --torrent-row-seeders-fg: var(--lc-green);
+  --torrent-row-leechers-fg: var(--lc-vhs-red);
+  --torrent-row-completed-fg: var(--lc-blue);
+  --torrent-row-thanks-fg: var(--lc-neon-pink);
+  --torrent-row-comments-fg: var(--lc-green);
+  --torrent-row-internal-fg: var(--lc-vhs-orange);
+  --torrent-row-personal-fg: var(--lc-purple);
+  --torrent-row-stream-optimized-fg: var(--lc-blue);
+  --torrent-row-featured-fg: var(--lc-neon-pink);
+  --torrent-row-freeleech-fg: var(--lc-vhs-yellow);
+  --torrent-row-double-upload-fg: var(--lc-green);
+  --torrent-row-sticky-fg: var(--lc-vhs-yellow);
+  --torrent-row-highspeed-fg: var(--lc-vhs-red);
+  --torrent-row-sd-fg: var(--lc-neon-cyan);
+  --torrent-row-bumped-fg: var(--lc-vhs-orange);
+  --torrent-tag-fg: #eee;
+  --torrent-tag-bg: transparent;
+  --torrent-tag-hover-fg: #fff;
+  --torrent-tag-hover-bg: rgba(62, 230, 255, .12);
+  --user-stat-card-bg: var(--bg-3);
+  --user-stat-card-fg: var(--lc-ink);
+  --user-stat-card-border: 1px solid var(--lc-line);
+  --user-stat-card-border-radius: var(--lc-radius);
+  --user-stat-card-box-shadow: 0 6px 18px rgba(0, 0, 0, .3)
+}
+
+/* ---- Cores utilitárias ---- */
+.text-success, .text-green { color: var(--color-light-green) }
+.text-warning { color: var(--color-light-yellow) }
+.text-bright { color: #fff }
+a.text-bright:focus, a.text-bright:hover { color: #fff }
+.text-blue { color: var(--text-color) }
+.text-purple { color: var(--lc-purple) }
+.text-muted { color: var(--lc-muted) }
+.text-red, .text-danger { color: var(--color-light-red) }
+.text-orange { color: var(--color-light-orange) }
+.text-pink { color: var(--lc-neon-pink) }
+a { color: var(--lc-neon-cyan) }
+a:hover { color: #9cf3ff }
+.badge-user {
+  border: 0;
+  box-shadow: none;
+  background-color: var(--bg-1);
+  text-shadow: 1.5px 1.5px #000
+}
+.footer__icon { color: var(--lc-neon-pink) }
+
+/* ---- Chat ---- */
+#frame { background: var(--bg-3) }
+#frame .content .messages ul li { border-bottom: 1px dashed var(--lc-line) }
+.chatbox .typing { color: var(--lc-muted) }
+#frame .content .messages ul li.sent h4 .text-muted { color: var(--lc-muted) }
+#frame .content .messages ul li > img { border: 3px solid var(--lc-neon-cyan) }
+#frame .content .message-input .wrap input { color: var(--lc-ink) }
+#frame .content .message-input .wrap input:focus { outline: none }
+#frame .content .message-input .wrap .attachment { color: var(--lc-muted) }
+#frame .content .message-input .wrap button { background: var(--bg-1); color: #fff }
+#frame .content .message-input .wrap button:hover { background: var(--bg-0) }
+.sent > a { height: 100%; position: absolute; bottom: 0 }
+.sent > a > img { display: block !important; height: 100%; position: absolute; bottom: 4px }
+#frame .content .messages ul li.sent img.chat-user-image { height: 40px; width: 40px }
+.sent > h4 {
+  display: block !important;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: var(--message-bubble-bg) !important;
+  padding: 4px 12px 0 8px;
+  margin: 4px 12px 0 48px
+}
+.sent > div {
+  display: block !important;
+  border-bottom-right-radius: 15px;
+  background-color: var(--message-bubble-bg) !important;
+  padding: 0 12px 4px 8px !important;
+  margin: 0 12px 4px 48px !important
+}
+.sent > .system { border-bottom-left-radius: 15px }
+.sent > div:not(.system):before {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 38px;
+  width: 0;
+  border-right: 10px solid var(--message-bubble-bg) !important;
+  border-top: 10px solid transparent
+}
+#frame .content .messages ul li.sent { border: 0; display: table; max-width: 85%; width: auto }
+#frame .content .messages ul li.sent h4 .text-muted { float: none }
+
+/* ==========================================================================
+   Layout (herdado do seu CSS atual)
+   ========================================================================== */
+body {
+  margin:0 auto;
+  max-width:1640px
+}
+main {
+  margin:0 2rem;
+  padding:2rem;
+  background-color:var(--body-bg-secondary)
+}
+main:has(>article>section.meta) {
+  background:var(--lc-glass)
+}
+.page__torrents,
+.user-torrents,
+.user-peers {
+  margin:0!important
+}
+.user-torrents,
+.user-peers {
+  width:unset;
+  align-self:unset
+}
+.user-torrents .data-table>tbody>tr>td,
+.user-peers .data-table>tbody>tr>td {
+  font-size:10px
+}
+.user-torrents__name {
+  font-size:10px
+}
+.top-nav {
+  background-color:transparent;
+  box-shadow:var(--top-nav-box-shadow);
+  display:grid;
+  grid-template-areas:"left" "right";
+  grid-template-rows:auto auto;
+  grid-template-columns:1fr;
+  align-items:center;
+  padding:1rem 2rem .5rem
+}
+.top-nav__left {
+  grid-area:left;
+  display:flex;
+  column-gap:32px;
+  justify-content:space-between;
+  width:100%;
+  margin-bottom:.5rem
+}
+.top-nav__main-menus {
+  grid-area:right;
+  display:flex;
+  list-style-type:none;
+  align-items:center;
+  margin:auto 0;
+  padding:0;
+  justify-self:start
+}
+.top-nav__right {
+  container-type:inline-size;
+  grid-area:right;
+  display:flex;
+  column-gap:40px;
+  width:60%;
+  margin-left:auto;
+  position:relative;
+  top:-6rem
+}
+.top-nav__ratio-bar.top-nav__ratio-bar {
+  display:grid;
+  grid-template-rows:repeat(2,auto);
+  grid-template-columns:repeat(4,auto);
+  font-size:12px
+}
+.top-nav__stats {
+  display:none
+}
+@container (min-width: 800px) {
+  .top-nav__ratio-bar.top-nav__ratio-bar {
+    display:grid;
+    grid-template-rows:auto;
+    grid-template-columns:repeat(8,auto);
+    font-size:12px
+  }
+  .top-nav__ratio-bar li:nth-child(-n+4),
+  .top-nav__ratio-bar li:nth-child(n+5) {
+    flex-basis:calc(25% + -0px);
+    text-align:center
+  }
+}
+@container (min-width: 650px) {
+  .top-nav__username--highresolution {
+    display:flex
+  }
+}
+@container (min-width: 520px) and (max-width: 600px) {
+  .top-nav__stats {
+    display:grid
+  }
+  .top-nav__ratio-bar.top-nav__ratio-bar {
+    display:none
+  }
+}
+@container (max-width: 520px) {
+  .top-nav__ratio-bar.top-nav__ratio-bar {
+    display:none
+  }
+}
+@media screen and (max-width: 767px) {
+  .top-nav__main-menus {
+    display:none
+  }
+  .top-nav__toggle {
+    position:absolute;
+    top:2.5rem;
+    right:2.5rem;
+    font-size:2.5rem
+  }
+  .top-nav {
+    padding-bottom:.5rem
+  }
+  main {
+    margin:0
+  }
+}
+.top-nav__main-menus {
+  gap:3px
+}
+.top-nav__main-menus>li {
+  background:var(--bg-2);
+  border-radius:6px;
+  position:relative
+}
+.top-nav__dropdown>ul {
+  top:30px
+}
+.top-nav__icon-bar .top-nav__dropdown>ul {
+  top:32px;
+  right:0
+}
+.nav-tab-menu__items {
+  top:30px
+}
+.quick-search {
+  top:66px;
+  height:32px
+}
+body>header {
+  position:unset
+}
+.top-nav--left__container .progress {
+  height:2px;
+  width:100%;
+  position:absolute;
+  bottom:0
+}
+.secondary-nav {
+  margin-left:2rem;
+  width:calc(100% - 4rem);
+  position:relative;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--lc-glass);
+}
+.panel__heading {
+  padding:7px 10px
+}
+.torrent-search__filters {
+  margin:0 1rem
+}
+.meta__backdrop {
+  top:0
+}
+#missing-media-table.data-table>tbody>tr>td {
+  font-size:11px
+}
+.top-nav__branding {
+  width:220px;
+  height:60px
+}
+.top-nav.mobile {
+  display:flex;
+  flex-direction:column
+}
+.top-nav__right.mobile {
+  width:100%;
+  top:unset
+}
+.top-nav__main-menus.mobile {
+  width:100%;
+  margin-bottom:16px
+}
+.top-nav__main-menus.mobile>li {
+  width:100%
+}
+.chatbox-message__content {
+  word-wrap:break-word
+}
+.breadcrumb--active {
+  font-weight: 500 !important;
+}
+nav.secondary-nav:not(:has(ol.breadcrumbsV2 > li.breadcrumbV2)) {
+  background-color: transparent;
+}
+/* ==========================================================================
+   Camada LOCADORA
+   ========================================================================== */
+
+/* ---- Base: carpete de cinema + chiado de CRT ---- */
+html {
+  background-color: var(--bg-4);
+  background-image:
+    radial-gradient(1200px 500px at 15% -10%, rgba(255, 79, 154, .14), transparent 60%),
+    radial-gradient(1000px 500px at 95% 0%, rgba(62, 230, 255, .10), transparent 60%),
+    radial-gradient(rgba(181, 140, 255, .07) 1px, transparent 1.4px);
+  background-size: auto, auto, 22px 22px;
+  background-attachment: fixed
+}
+body {
+  font-family: var(--lc-font-body);
+  color: var(--lc-ink);
+  background: transparent
+}
+/* Scanlines bem sutis por cima de tudo (não captura cliques) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0 2px,
+      rgba(0, 0, 0, .09) 2px 3px);
+  mix-blend-mode: multiply
+}
+::selection { background: var(--lc-neon-pink); color: #fff }
+
+main {
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(18, 16, 48, .5), rgba(18, 16, 48, .28) 60%, rgba(18, 16, 48, .12));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .04),
+    0 0 0 1px rgba(126, 118, 214, .07),
+    0 40px 90px -30px rgba(0, 0, 0, .45)
+}
+
+/* ---- Títulos: letreiro de fachada ---- */
+h1, h2, h3,
+.panel__heading,
+.dialog__heading,
+.top-nav__main-menus > li > a,
+.top-nav__main-menus > li > .top-nav__dropdown > a {
+  font-family: var(--lc-font-display);
+  letter-spacing: .06em;
+  font-weight: 400
+}
+
+/* ---- Menu principal: placas das seções da loja ---- */
+.top-nav {
+  padding-top: 20px;
+  padding-bottom: 14px
+}
+.top-nav__main-menus { gap: 8px }
+.top-nav__main-menus > li {
+  background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  border: 1px solid var(--lc-line);
+  border-radius: 8px;
+  transition: border-color .2s, box-shadow .2s
+}
+.top-nav__main-menus > li > a,
+.top-nav__main-menus > li > .top-nav__dropdown > a {
+  font-size: 19px;
+  line-height: 1;
+  height: 38px;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 2px 14px 0;
+  margin: 0;
+  color: var(--lc-ink)
+}
+.top-nav__main-menus > li:hover,
+.top-nav__main-menus > li:focus-within {
+  border-color: var(--lc-neon-pink);
+  box-shadow: var(--lc-glow-pink)
+}
+.top-nav__main-menus > li:hover > a,
+.top-nav__main-menus > li:hover > .top-nav__dropdown > a {
+  color: #fff;
+  text-shadow: var(--lc-glow-pink)
+}
+
+/* Logo com halo de neon */
+.top-nav__branding img,
+.top-nav__site-logo {
+  filter: drop-shadow(0 0 6px rgba(255, 79, 154, .55)) drop-shadow(0 0 16px rgba(62, 230, 255, .25))
+}
+
+/* ---- Avatar: anel de néon nas cores da etiqueta VHS ---- */
+@property --lc-ring-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg
+}
+.top-nav__profile-image {
+  width: 38px;
+  height: 38px;
+  box-sizing: border-box;
+  padding: 2px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  object-fit: cover;
+  background:
+    linear-gradient(var(--bg-4), var(--bg-4)) padding-box,
+    conic-gradient(from var(--lc-ring-angle),
+      var(--lc-vhs-red), var(--lc-vhs-orange), var(--lc-vhs-yellow),
+      var(--lc-neon-cyan), var(--lc-neon-pink), var(--lc-vhs-red)) border-box;
+  box-shadow: 0 0 10px rgba(255, 79, 154, .35);
+  transition: box-shadow .25s
+}
+.top-nav__dropdown:hover .top-nav__profile-image,
+.top-nav__dropdown:focus-within .top-nav__profile-image {
+  box-shadow: 0 0 8px rgba(255, 79, 154, .6), 0 0 20px rgba(62, 230, 255, .35);
+  animation: lc-ring-spin 2.5s linear infinite
+}
+@keyframes lc-ring-spin {
+  to { --lc-ring-angle: 360deg }
+}
+
+/* ---- Ratio bar: display de videocassete (OSD) ---- */
+.top-nav__ratio-bar,
+.top-nav__stats {
+  font-family: var(--lc-font-osd);
+  font-size: 17px !important;
+  letter-spacing: .03em
+}
+.top-nav__ratio-bar li,
+.top-nav__stats > * {
+  text-shadow: 0 0 4px rgba(62, 230, 255, .45)
+}
+.ratio-bar__uploaded, .top-nav__stats-up { color: var(--lc-green) }
+.ratio-bar__downloaded, .top-nav__stats-down { color: var(--lc-vhs-red) }
+.ratio-bar__ratio, .top-nav__stats-ratio { color: var(--lc-vhs-yellow) }
+.ratio-bar__points { color: var(--lc-neon-pink) }
+.ratio-bar__tokens { color: var(--lc-purple) }
+
+/* ---- Painéis: etiqueta de fita VHS ---- */
+.panel__header,
+.panelV2 > .panel__heading {
+  position: relative;
+  background:
+    var(--lc-label-stripe) left / 18px 100% no-repeat,
+    linear-gradient(180deg, var(--bg-3), var(--bg-4));
+  border-bottom: 1px solid var(--lc-line);
+  border-radius: var(--lc-radius) var(--lc-radius) 0 0
+}
+.panel__header .panel__heading {
+  background: transparent
+}
+.panel__heading {
+  padding: 8px 12px 6px 28px !important;
+  font-size: 21px;
+  line-height: 1.1;
+  color: #fff
+}
+.panel__heading .fa,
+.panel__heading .fas,
+.panel__heading .far,
+.panel__heading .fal {
+  color: var(--lc-vhs-yellow)
+}
+
+/* Abas dentro de painéis */
+.panel__tab {
+  font-family: var(--lc-font-display);
+  letter-spacing: .05em;
+  font-size: 17px
+}
+.panel__tab--active {
+  color: var(--lc-vhs-yellow) !important;
+  box-shadow: inset 0 -2px 0 var(--lc-vhs-yellow)
+}
+
+/* ---- Secondary nav: sublinhado de néon mais grosso e afastado do texto ---- */
+.secondary-nav { border-radius: 12px }
+.nav-tab__link,
+.nav-tab--active__link {
+  text-underline-offset: 8px !important;
+  text-decoration-skip-ink: none;
+  /* espaço extra embaixo para o sublinhado afastado não ser cortado
+     pelo overflow-x: auto da .nav-tabsV2 (base: 5px 18px) */
+  padding: 6px 18px 12px
+}
+.nav-tab--active__link { color: #fff }
+.breadcrumb--active { color: var(--lc-vhs-yellow) }
+
+/* ---- Botões: ticket de aluguel ---- */
+.form__button {
+  font-weight: 600;
+  letter-spacing: .02em;
+  transition: transform .15s, box-shadow .2s, filter .2s
+}
+.form__button--filled {
+  background-image: linear-gradient(180deg, #ffd660, var(--lc-vhs-yellow));
+  box-shadow: 0 2px 0 #b8861a, 0 6px 14px rgba(255, 201, 60, .18)
+}
+.form__button--filled:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 3px 0 #b8861a, 0 0 18px rgba(255, 201, 60, .45)
+}
+.form__button--filled:active { transform: translateY(1px); box-shadow: 0 1px 0 #b8861a }
+.form__button--outlined:hover { box-shadow: var(--lc-glow-cyan) }
+
+/* ---- Tabelas: lista de títulos no balcão ---- */
+.data-table > thead > tr > th {
+  font-family: var(--lc-font-display);
+  letter-spacing: .06em;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--lc-vhs-yellow)
+}
+.data-table > tbody > tr { transition: background-color .15s, box-shadow .15s }
+.data-table > tbody > tr:hover { box-shadow: inset 3px 0 0 var(--lc-neon-cyan) }
+
+/* Botões de ícone em tabelas: padding menor para não quebrar linha (base: 14px) */
+.data-table .data-table__actions { gap: 10px }
+.data-table .form__standard-icon-button:not(.form__standard-icon-button--skinny) {
+  padding-left: 8px;
+  padding-right: 8px
+}
+.data-table .form__standard-icon-button:not(.form__standard-icon-button--short) {
+  padding-top: 8px;
+  padding-bottom: 8px
+}
+
+/* Respiro interno das células (base: 7px) */
+.data-table > tr > th,
+.data-table > thead > tr > th,
+.data-table > tbody > tr > th,
+.data-table > tfoot > tr > th,
+.data-table > tr > td,
+.data-table > thead > tr > td,
+.data-table > tbody > tr > td,
+.data-table > tfoot > tr > td {
+  padding: 10px 12px
+}
+/* Mais distância das bordas laterais da tabela */
+.data-table > * > tr > :first-child,
+.data-table > tr > :first-child { padding-left: 16px }
+.data-table > * > tr > :last-child,
+.data-table > tr > :last-child { padding-right: 16px }
+/* Cabeçalhos ordenáveis: ícone/título + seta de ordenação sempre na mesma linha */
+.data-table th[wire\:click],
+.data-table th[role~="button"] { white-space: nowrap }
+/* (primeira/última coluna mantêm os 16px da borda) */
+.data-table th[wire\:click]:not(:first-child):not(:last-child),
+.data-table th[role~="button"]:not(:first-child):not(:last-child) {
+  padding-left: 8px;
+  padding-right: 8px
+}
+.data-table th[wire\:click] > i + i,
+.data-table th[role~="button"] > i + i { margin-left: 4px }
+
+/* Capas e imagens dentro de células não encostam em nada */
+.data-table td img { vertical-align: middle }
+.torrent-search--list__poster { padding-top: 12px !important; padding-bottom: 12px !important }
+
+/* ---- Capas: fitas na prateleira ---- */
+.torrent-search--poster__poster > img,
+.torrent-search--grouped__poster img,
+.torrent-search--list__poster-img,
+.torrent-card__image,
+.overview__poster,
+.mediahub-card img {
+  border-radius: 4px 8px 8px 4px;
+  box-shadow:
+    inset 6px 0 0 rgba(0, 0, 0, .25),
+    0 8px 18px rgba(0, 0, 0, .55)
+}
+.torrent-search--poster__poster,
+.torrent-search--poster__result,
+.overview__poster,
+.mediahub-card,
+.torrent-card {
+  transition: transform .2s ease, box-shadow .2s ease
+}
+/* "Tirar a fita da prateleira" */
+.torrent-search--poster__result:hover .torrent-search--poster__poster,
+.overview__poster:hover,
+.mediahub-card:hover,
+.torrent-card:hover {
+  transform: translateY(-4px) rotate(-.6deg)
+}
+.torrent-search--poster__result:hover img,
+.overview__poster:hover img,
+.mediahub-card:hover img {
+  box-shadow:
+    inset 6px 0 0 rgba(0, 0, 0, .25),
+    0 14px 28px rgba(0, 0, 0, .6),
+    0 0 0 2px var(--lc-vhs-yellow)
+}
+.torrent-search--poster__title { font-weight: 600 }
+.torrent-search--poster__release-date {
+  font-family: var(--lc-font-osd);
+  font-size: 17px;
+  color: var(--lc-muted)
+}
+
+/* Em listas com rolagem horizontal (Relations > Recommendations, pôsteres do
+   perfil) o overflow corta o que sai da caixa: sem levantar/inclinar e com o
+   anel desenhado por dentro da capa. Não dá para abrir espaço com padding porque
+   a .recommendations tem max-height inline com !important. */
+.recommendations .torrent-search--poster__result:hover .torrent-search--poster__poster,
+.recommendations .torrent-search--poster__poster,
+.overview__poster-grid .overview__poster,
+.overview__poster-grid .overview__poster:hover {
+  transform: none
+}
+.recommendations .torrent-search--poster__result:hover img,
+.overview__poster-grid .overview__poster:hover img {
+  box-shadow: inset 6px 0 0 rgba(0, 0, 0, .25), 0 8px 18px rgba(0, 0, 0, .55);
+  outline: 2px solid var(--lc-vhs-yellow);
+  outline-offset: -2px;
+  filter: brightness(1.08)
+}
+
+/* ---- Pôster da página do torrent: estojo VHS de locadora, versão RETRÔ ----
+   Camadas: fundo do link = estojo (lombada, faixa da distribuidora, créditos,
+   etiqueta de código de barras); ::before = plástico gasto por cima de tudo
+   (reflexo, arranhões, cantos, granulado); ::after = bolinhas de preço. */
+.meta__poster-link {
+  --lc-case-top: 34px;
+  --lc-case-bottom: 24px;
+  --lc-case-side: 8px;
+  --lc-case-spine: 12px;
+  position: relative;
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  padding: var(--lc-case-top) var(--lc-case-side) var(--lc-case-bottom) var(--lc-case-spine);
+  border-radius: 8px;
+  background:
+    /* código de barras + etiqueta branca (canto inferior direito) */
+    repeating-linear-gradient(90deg, #15141a 0 1px, transparent 1px 2px, #15141a 2px 4px, transparent 4px 5px, #15141a 5px 6px, transparent 6px 8px)
+      right 15px bottom 7px / 36px 9px no-repeat,
+    linear-gradient(#ece6d6, #ece6d6) right 11px bottom 4px / 44px 15px no-repeat,
+    /* "créditos" em letras miúdas */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='24'%3E%3Cg fill='%23a49c86' fill-opacity='.55'%3E%3Crect x='7%25' y='5' width='56%25' height='2'/%3E%3Crect x='10%25' y='10' width='50%25' height='1.5'/%3E%3Crect x='7%25' y='14' width='58%25' height='1.5'/%3E%3Crect x='14%25' y='18' width='40%25' height='1.5'/%3E%3C/g%3E%3C/svg%3E")
+      left bottom / 100% var(--lc-case-bottom) no-repeat,
+    /* faixa da distribuidora */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='34'%3E%3Cg stroke='%23d9cfb4' stroke-opacity='.7'%3E%3Cline x1='4%25' x2='96%25' y1='5' y2='5'/%3E%3Cline x1='4%25' x2='96%25' y1='8' y2='8' stroke-width='.6'/%3E%3Cline x1='4%25' x2='96%25' y1='30' y2='30'/%3E%3C/g%3E%3Ctext x='50%25' y='25.5' text-anchor='middle' font-family='Impact, Haettenschweiler, Arial Narrow Bold, Arial Black, sans-serif' font-size='17' letter-spacing='1.2' fill='%23ece3c8'%3ELOCADORA HOME VIDEO%3C/text%3E%3C/svg%3E")
+      left top / 100% var(--lc-case-top) no-repeat,
+    /* lombada: plástico dobrado à esquerda */
+    linear-gradient(90deg, #050508 0 3px, #34323d 4px, #121118 7px, #0b0a10 var(--lc-case-spine))
+      left top / var(--lc-case-spine) 100% no-repeat,
+    /* plástico preto do estojo */
+    linear-gradient(160deg, #23222b, #0b0a10 55%, #16151d);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .07),
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    0 22px 44px rgba(0, 0, 0, .6),
+    0 6px 12px rgba(0, 0, 0, .4);
+  transition: transform .25s ease, box-shadow .25s ease
+}
+.meta__poster-link .meta__poster {
+  display: block;
+  /* 280px de capa + faixas cabem no max-height de 510px do .meta */
+  width: 280px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .6);
+  /* cópia antiga: cores lavadas, leve amarelado, contraste puxado */
+  filter: sepia(.25) saturate(.8) contrast(1.08) brightness(.95);
+  transition: filter .25s ease
+}
+/* Plástico da capinha, gasto de tanto aluguel */
+.meta__poster-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  pointer-events: none;
+  background:
+    /* reflexo de luz */
+    linear-gradient(115deg,
+      rgba(255, 255, 255, .18) 0%,
+      rgba(255, 255, 255, .05) 24%,
+      transparent 36%,
+      transparent 72%,
+      rgba(255, 255, 255, .07) 84%,
+      transparent 100%),
+    /* arranhões finos em duas direções */
+    repeating-linear-gradient(118deg, transparent 0 41px, rgba(255, 255, 255, .06) 41px 42px, transparent 42px 97px),
+    repeating-linear-gradient(64deg, transparent 0 67px, rgba(255, 255, 255, .045) 67px 68px, transparent 68px 131px),
+    /* cantos esbranquiçados */
+    radial-gradient(circle at 0 0, rgba(255, 255, 255, .22), transparent 26px),
+    radial-gradient(circle at 100% 0, rgba(255, 255, 255, .16), transparent 22px),
+    radial-gradient(circle at 0 100%, rgba(255, 255, 255, .16), transparent 24px),
+    radial-gradient(circle at 100% 100%, rgba(255, 255, 255, .2), transparent 28px),
+    /* granulado de papel */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .35 0 0 0 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* bordas gastas */
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .06),
+    inset 0 0 14px rgba(255, 255, 255, .05)
+}
+/* Bolinhas de preço: a laranja com texto + uma branca "clonada" via box-shadow */
+.meta__poster-link::after {
+  content: var(--lc-poster-sticker);
+  position: absolute;
+  top: calc(var(--lc-case-top) + 18px);
+  left: calc(var(--lc-case-spine) + 16px);
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  transform: rotate(-10deg);
+  pointer-events: none;
+  font-family: var(--lc-font-display);
+  font-size: 19px;
+  line-height: 1;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  color: #2a1408;
+  background: radial-gradient(circle at 35% 30%, #f59a5c, #e0662e 70%);
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 255, 255, .28),
+    0 2px 6px rgba(0, 0, 0, .45),
+    30px 40px 0 -10px #ece6d6,
+    30px 42px 6px -10px rgba(0, 0, 0, .45)
+}
+/* "Tirar o estojo da prateleira" */
+.meta__poster-link:hover {
+  transform: translateY(-5px) rotate(-1deg);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .1),
+    inset 0 1px 0 rgba(255, 255, 255, .16),
+    0 30px 60px rgba(0, 0, 0, .65),
+    0 0 26px rgba(255, 201, 60, .18)
+}
+.meta__poster-link:hover .meta__poster {
+  filter: sepia(.15) saturate(.9) contrast(1.06) brightness(1)
+}
+/* Pôster pequeno (o base fixa a coluna em 140/96/64px): só estojo fino, cor
+   antiga e desgaste — faixas e adesivos ficariam ilegíveis */
+@media screen and (max-width: 1200px) {
+  .meta__poster-link {
+    width: 100%;
+    padding: 4px;
+    border-radius: 6px;
+    background: linear-gradient(160deg, #23222b, #0b0a10 55%, #16151d)
+  }
+  .meta__poster-link .meta__poster { width: 100% }
+  .meta__poster-link::before { border-radius: 6px }
+  .meta__poster-link::after { display: none }
+}
+
+/* ---- Random Media: rótulo de categoria como adesivo ---- */
+.random__media > a > span {
+  align-self: flex-start;
+  margin: 0 0 10px 12px;
+  padding: 3px 10px 1px !important; /* o Blade define padding-left inline */
+  transform: rotate(-2deg);
+  font-family: var(--lc-font-display);
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: .1em;
+  color: #1a1236;
+  background: var(--lc-vhs-yellow);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 var(--lc-vhs-red), 0 4px 10px rgba(0, 0, 0, .45)
+}
+/* Cor fixa por categoria. CSS não lê o texto do rótulo, então usamos o ID da
+   categoria na URL do link: /torrents/similar/{category_id}.{tmdb}
+   O "." depois do ID evita que /similar/1. pegue também 10, 11, 12...
+   Filmes (amarelo/vermelho) é o padrão acima. */
+/* Séries — ID 2 */
+.random__media > a[href*="/similar/2."] > span {
+  background: var(--lc-neon-cyan);
+  box-shadow: 3px 3px 0 var(--lc-neon-pink), 0 4px 10px rgba(0, 0, 0, .45)
+}
+/* Animes — ID 6 */
+.random__media > a[href*="/similar/6."] > span {
+  background: var(--lc-neon-pink);
+  color: #fff;
+  box-shadow: 3px 3px 0 #1a1236, 0 4px 10px rgba(0, 0, 0, .45)
+}
+
+/* Cards de torrent */
+.torrent-card { border-radius: var(--lc-radius); overflow: clip }
+.torrent-card__title { font-family: var(--lc-font-display); letter-spacing: .04em; font-size: 21px }
+
+/* Top 10: contador estilo VCR */
+.top10-poster__download-count {
+  font-family: var(--lc-font-osd);
+  font-size: 18px;
+  color: var(--lc-neon-cyan);
+  text-shadow: 0 0 4px rgba(62, 230, 255, .6)
+}
+
+/* ---- Busca rápida: mesma altura dos botões do menu (38px + 1px de borda) ----
+   Colapsada por padrão (só os ícones). Clicar num ícone foca o input (Alpine,
+   no Blade) e a barra expande; recolhe ao sair, a menos que tenha texto. */
+.quick-search {
+  height: 40px;
+  flex-grow: 0;
+  width: 112px; /* 3 ícones × 36px + borda/gap */
+  max-width: 360px;
+  transition: width .25s ease
+}
+.quick-search:focus-within,
+.quick-search:has(.quick-search__input:not(:placeholder-shown)) {
+  width: 360px
+}
+.quick-search__input {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 0;
+  padding: 0;
+  opacity: 0;
+  font-size: 14px;
+  transition: opacity .2s ease
+}
+.quick-search:focus-within .quick-search__input,
+.quick-search:has(.quick-search__input:not(:placeholder-shown)) .quick-search__input {
+  padding: 0 0 0 12px;
+  opacity: 1
+}
+
+/* Ícones: mesma largura, centralizados, seleção ocupando a altura toda */
+.quick-search__radios { align-items: stretch; flex-shrink: 0 }
+.quick-search__radio-label { align-items: stretch }
+.quick-search__radio-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 100%;
+  transition: background-color .15s, color .15s
+}
+.quick-search__radio-icon:before {
+  display: block;
+  width: auto;
+  height: auto;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1;
+  background: none !important /* o fundo da seleção vai no ícone inteiro, abaixo */
+}
+.quick-search__radio:checked ~ .quick-search__radio-icon {
+  background-color: var(--quick-search-selector-selected-bg);
+  color: var(--quick-search-selector-selected-fg);
+  box-shadow: inset 0 -2px 0 var(--lc-vhs-yellow)
+}
+
+/* ---- Fórum: cada post é uma fita separada ---- */
+.topic-posts { row-gap: 22px }
+.post {
+  background-color: var(--bg-3);
+  border: 1px solid var(--lc-line);
+  border-radius: var(--lc-radius);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .35)
+}
+.post__aside {
+  background:
+    var(--lc-label-stripe) left / 18px 4px no-repeat,
+    var(--bg-4);
+  border-right: 1px solid var(--lc-line)
+}
+.post__header {
+  border-bottom: 1px solid rgba(126, 118, 214, .12)
+}
+/* Assinatura: rotulada e esmaecida, para não parecer outro post */
+.post__footer {
+  position: relative;
+  margin: 6px 14px 0;
+  padding: 18px 9px 12px;
+  border-top: 1px dashed rgba(126, 118, 214, .3);
+  opacity: .8
+}
+.post__footer::before {
+  content: "ASSINATURA";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 10px;
+  background: var(--bg-3);
+  font-family: var(--lc-font-osd);
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: .12em;
+  color: var(--lc-muted)
+}
+.post__footer:hover { opacity: 1 }
+
+/* ---- Paginação: botão atual é a fita em destaque ---- */
+.pagination__current,
+.pagination .active > span {
+  color: #1a1236 !important;
+  font-weight: 700
+}
+
+/* ---- Inputs: foco com brilho ---- */
+.form__text:focus,
+.form__textarea:focus,
+.form__select:focus {
+  box-shadow: 0 0 0 3px rgba(62, 230, 255, .15)
+}
+
+/* ---- Rodapé: o aviso que todo mundo lembra ---- */
+/* .footer já é position: sticky no tema base (sticky footer) — não sobrescrever */
+/* .footer é flex em coluna centralizada: o adesivo entra como primeiro item */
+.footer::before {
+  content: "REBOBINE, POR FAVOR \25C0\25C0";
+  display: block;
+  margin: 0;
+  transform: rotate(-1.5deg);
+  white-space: nowrap;
+  padding: 3px 14px 1px;
+  font-family: var(--lc-font-display);
+  font-size: 20px;
+  letter-spacing: .12em;
+  color: #1a1236;
+  background: var(--lc-vhs-yellow);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--lc-vhs-red)
+}
+.footer__wrapper { margin-top: 46px }
+.footer__section-title {
+  font-family: var(--lc-font-display);
+  letter-spacing: .08em;
+  font-weight: 400;
+  color: var(--lc-vhs-yellow)
+}
+
+/* ---- Neon que pisca de leve no hover do logo ---- */
+@keyframes lc-flicker {
+  0%, 100% { opacity: 1 }
+  92% { opacity: 1 }
+  93% { opacity: .55 }
+  94% { opacity: 1 }
+  96% { opacity: .7 }
+  97% { opacity: 1 }
+}
+.top-nav__branding:hover img,
+.top-nav__branding:hover .top-nav__site-logo {
+  animation: lc-flicker 2.4s infinite
+}
+
+/* ---- Acessibilidade ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important
+  }
+  .torrent-search--poster__result:hover .torrent-search--poster__poster,
+  .overview__poster:hover,
+  .mediahub-card:hover,
+  .torrent-card:hover,
+  .meta__poster-link:hover {
+    transform: none
+  }
+}
+@media screen and (max-width: 767px) {
+  body::after { display: none }
+  .footer::before { font-size: 16px }
+  .footer__wrapper { margin-top: 32px }
+}
