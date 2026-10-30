@@ -811,6 +811,17 @@ h1, h2, h3,
 .panel__header .panel__action {
   background: transparent
 }
+/* Label flutuante herda o fundo (inherit) para cortar a borda do select;
+   com as ações transparentes ela ficava sem fundo e a borda cruzava o texto.
+   Cor sólida no meio do gradiente do header (bg-3 → bg-4) */
+.panel__header .panel__action .form__label--floating {
+  background-color: #0f0d29
+}
+/* Respiro em cima para o label que sobe para a borda (top: -5px) */
+.panel__header .panel__actions {
+  padding-top: 10px;
+  padding-bottom: 6px
+}
 /* Mobile: as ações viram menu "⋮" sobreposto; aberto, precisa de fundo sólido */
 @media only screen and (max-width: 1100px) {
   .panel__header .panel__actions:hover,
@@ -819,6 +830,9 @@ h1, h2, h3,
     border: 1px solid var(--lc-line);
     border-radius: 0 var(--lc-radius) 0 var(--lc-radius);
     box-shadow: 0 10px 30px rgba(0, 0, 0, .45)
+  }
+  .panel__header .panel__action .form__label--floating {
+    background-color: var(--bg-4)
   }
 }
 .panel__heading {
