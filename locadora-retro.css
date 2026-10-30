@@ -1145,6 +1145,99 @@ h1, h2, h3,
   .meta__poster-link::after { display: none }
 }
 
+/* ---- Créditos da página do torrent: etiquetas coladas na fita ----
+   Cada coluna (Cast / Crew / Extra) vira uma etiqueta no roxo do tema, com a
+   listra da locadora, título impresso e pautas claras. As cores dos chips são
+   redefinidas no escopo da etiqueta */
+.meta__chips {
+  gap: 20px;
+  padding: 4px 6px 8px
+}
+.meta__chip-container {
+  /* papel escuro no roxo do tema: o creme destoava demais do fundo */
+  --lc-label-paper: #1f1d4a8f; /* --bg-1 a ~56%: o backdrop aparece e funde melhor */
+  --lc-label-paper-edge: #141236;
+  --lc-label-ink: #f1eefc;
+  --lc-label-band: 30px;
+  --lc-label-row: 52px;
+  --meta-chips-heading-fg: var(--lc-vhs-yellow);
+  --meta-chip-name-fg: var(--lc-label-ink);
+  --meta-chip-value-fg: var(--lc-muted);
+  --meta-chip-value-hover-fg: #fff;
+  --meta-chip-icon-bg: #d9d4f5;
+  --meta-chip-icon-fg: #1a1236;
+  --meta-chip-icon-hover-bg: var(--lc-vhs-yellow);
+  --meta-chip-backdrop-filter-hover: none;
+  padding: var(--lc-label-band) 6px 6px 26px;
+  border-radius: 3px;
+  background:
+    /* listra da locadora na borda esquerda */
+    var(--lc-label-stripe) left top / 18px 100% no-repeat,
+    /* pautas: uma linha sob cada chip, rolando junto com o conteúdo */
+    repeating-linear-gradient(180deg,
+      transparent 0 calc(var(--lc-label-row) - 1px),
+      rgba(181, 140, 255, .14) calc(var(--lc-label-row) - 1px) var(--lc-label-row))
+      left 0 top var(--lc-label-band) / 100% 100%,
+    /* granulado claro, bem sutil */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .12 0 0 0 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    /* bordas um pouco mais escuras */
+    radial-gradient(130% 110% at 50% 40%, var(--lc-label-paper) 55%, var(--lc-label-paper-edge));
+  background-attachment: local, local, local, scroll;
+  box-shadow:
+    inset 0 0 0 1px var(--lc-line),
+    inset 0 1px 0 rgba(255, 255, 255, .05),
+    inset 0 0 22px rgba(0, 0, 0, .35),
+    0 10px 22px rgba(0, 0, 0, .45),
+    0 2px 4px rgba(0, 0, 0, .3);
+  /* sem barra de rolagem visível; a rolagem continua com a roda do mouse */
+  scrollbar-width: none;
+  /* coladas meio tortas, cada uma de um jeito */
+  transform: rotate(-.5deg)
+}
+.meta__chip-container::-webkit-scrollbar { display: none }
+.meta__chip-container:nth-child(2) { transform: rotate(.4deg) }
+.meta__chip-container:nth-child(3) { transform: rotate(-.25deg) }
+/* Título impresso no topo da etiqueta, com fio duplo embaixo */
+.meta__chip-container > .meta__heading {
+  left: 26px;
+  right: 8px;
+  top: 0;
+  height: var(--lc-label-band);
+  box-sizing: border-box;
+  padding-top: 7px;
+  font-family: var(--lc-font-display);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .12em;
+  border-bottom: 3px double rgba(181, 140, 255, .3)
+}
+.meta__chip-container .meta-chip {
+  border-radius: 4px;
+  padding-right: 14px
+}
+/* Hover: o mesmo realce ciano dos chips do tema */
+.meta__chip-container .meta-chip:hover,
+.meta__chip-container a.meta-chip:focus-visible {
+  background: var(--meta-chip-hover-bg)
+}
+.meta__chip-container .meta-chip__name {
+  font-size: 15px;
+  letter-spacing: .01em
+}
+.meta__chip-container .meta-chip__value {
+  font-size: 14px
+}
+/* Mobile: os chips viram fileira horizontal; sai a pauta e a inclinação */
+@media screen and (max-width: 767px) {
+  .meta__chip-container {
+    background:
+      var(--lc-label-stripe) left top / 18px 100% no-repeat,
+      radial-gradient(130% 110% at 50% 40%, var(--lc-label-paper) 55%, var(--lc-label-paper-edge));
+    transform: none !important
+  }
+}
+
 /* ---- Random Media: rótulo de categoria como adesivo ---- */
 .random__media > a > span {
   align-self: flex-start;
