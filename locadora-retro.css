@@ -1227,9 +1227,7 @@ h1, h2, h3,
   box-shadow: 0 8px 22px rgba(0, 0, 0, .35)
 }
 .post__aside {
-  background:
-    var(--lc-label-stripe) left top / 18px 4px no-repeat,
-    var(--bg-4);
+  background: var(--bg-4);
   border-right: 1px solid var(--lc-line)
 }
 .post__header {
