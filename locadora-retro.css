@@ -1228,7 +1228,7 @@ h1, h2, h3,
 }
 .post__aside {
   background:
-    var(--lc-label-stripe) left / 18px 4px no-repeat,
+    var(--lc-label-stripe) left top / 18px 4px no-repeat,
     var(--bg-4);
   border-right: 1px solid var(--lc-line)
 }
