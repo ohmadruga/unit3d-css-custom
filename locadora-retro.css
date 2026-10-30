@@ -806,8 +806,20 @@ h1, h2, h3,
   border-bottom: 1px solid var(--lc-line);
   border-radius: var(--lc-radius) var(--lc-radius) 0 0
 }
-.panel__header .panel__heading {
+.panel__header .panel__heading,
+.panel__header .panel__actions,
+.panel__header .panel__action {
   background: transparent
+}
+/* Mobile: as ações viram menu "⋮" sobreposto; aberto, precisa de fundo sólido */
+@media only screen and (max-width: 1100px) {
+  .panel__header .panel__actions:hover,
+  .panel__header .panel__actions:focus {
+    background: var(--bg-4);
+    border: 1px solid var(--lc-line);
+    border-radius: 0 var(--lc-radius) 0 var(--lc-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .45)
+  }
 }
 .panel__heading {
   padding: 8px 12px 6px 28px !important;
