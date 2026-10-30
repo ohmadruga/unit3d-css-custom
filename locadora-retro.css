@@ -6,7 +6,7 @@
    OSD de videocassete e um leve chiado de tubo CRT.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Varela+Round&family=VT323&display=swap');
 
 :root {
   /* ---- Paleta Locadora ---- */
@@ -34,6 +34,7 @@
   --lc-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --lc-font-display: 'Bebas Neue', 'Impact', sans-serif;
   --lc-font-osd: 'VT323', ui-monospace, monospace;
+  --lc-font-dymo: 'Varela Round', 'Arial Rounded MT Bold', 'Helvetica Neue', sans-serif;
 
   /* ---- Variáveis do tracker ---- */
   --text-color: var(--lc-ink);
@@ -1143,6 +1144,53 @@ h1, h2, h3,
   .meta__poster-link .meta__poster { width: 100% }
   .meta__poster-link::before { border-radius: 6px }
   .meta__poster-link::after { display: none }
+}
+
+/* ---- Nome do torrent: fita de rotuladora Dymo ----
+   Fita plástica com letras em relevo, no mesmo plástico preto e creme do
+   estojo VHS do pôster. O nome do release não tem espaços (pontos no lugar),
+   então ele quebra em qualquer ponto e a fita vira uma tira mais larga.
+   Sem caixa alta: a caixa do nome do release carrega informação (x264, NTb) */
+.torrent__name {
+  --lc-dymo-tape: linear-gradient(160deg, #2a2932, #121118 55%, #1c1b23);
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 18px auto 14px;
+  padding: 8px 22px 7px;
+  font-family: var(--lc-font-dymo);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: .08em;
+  text-align: center;
+  overflow-wrap: anywhere;
+  /* relevo: plástico esticado fica esbranquiçado, com sombra embaixo */
+  color: #ece3c8;
+  text-shadow:
+    0 -1px 0 rgba(255, 255, 255, .2),
+    0 1px 0 rgba(0, 0, 0, .8),
+    0 2px 3px rgba(0, 0, 0, .5);
+  background:
+    /* marcas brancas do corte nas pontas da fita */
+    linear-gradient(rgba(236, 227, 200, .5), rgba(236, 227, 200, .5)) left 6px top 4px / 1px 8px no-repeat,
+    linear-gradient(rgba(236, 227, 200, .5), rgba(236, 227, 200, .5)) right 6px bottom 4px / 1px 8px no-repeat,
+    /* brilho do plástico */
+    linear-gradient(180deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .02) 45%, rgba(0, 0, 0, .25)),
+    var(--lc-dymo-tape);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .07),
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    0 3px 0 rgba(0, 0, 0, .4),
+    0 10px 22px rgba(0, 0, 0, .5);
+  transform: rotate(-.4deg)
+}
+@media screen and (max-width: 767px) {
+  .torrent__name { font-size: 15px; padding: 6px 16px 5px; letter-spacing: .05em }
+}
+@media screen and (max-width: 480px) {
+  .torrent__name { font-size: 13px; padding: 5px 12px 4px; letter-spacing: .03em }
 }
 
 /* ---- Créditos da página do torrent: etiquetas coladas na fita ----
