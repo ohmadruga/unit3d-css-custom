@@ -887,6 +887,17 @@ h1, h2, h3,
 .data-table > tbody > tr { transition: background-color .15s, box-shadow .15s }
 .data-table > tbody > tr:hover { box-shadow: inset 3px 0 0 var(--lc-neon-cyan) }
 
+/* Zebra, hover e destaque pintados na linha, não nas células: na lista de
+   torrents a linha é um grid e cada célula é pintada inteira por cima da
+   anterior, então o fundo da célula do formato tingia a parte da capa (54px)
+   que vaza da coluna de 60px */
+.data-table > tbody > tr:nth-child(n) > td,
+.data-table > tbody > tr:hover > td { background-color: transparent }
+.torrent-search--list__sticky-row td { background-color: transparent !important }
+.data-table > tbody > tr:nth-child(even) { background-color: var(--data-table-tr-even-bg) }
+.data-table > tbody > tr:hover { background-color: var(--data-table-tr-hover-bg) }
+.data-table > tbody > tr.torrent-search--list__sticky-row { background-color: var(--torrent-row-sticky-bg) }
+
 /* Botões de ícone em tabelas: padding menor para não quebrar linha (base: 14px) */
 .data-table .data-table__actions { gap: 10px }
 .data-table .form__standard-icon-button:not(.form__standard-icon-button--skinny) {
