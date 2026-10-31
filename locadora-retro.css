@@ -1423,6 +1423,189 @@ h1, h2, h3,
 }
 .post__footer:hover { opacity: 1 }
 
+/* ---- Fórum no celular: post em grade única, ações sempre à mostra ----
+   Proposta de um membro do tracker (referências: Discourse, Reddit, GitHub).
+   Abaixo de 576px o UNIT3D empilha o aside inteiro sobre o post e esconde as
+   ações atrás de um "⋮" que só abre com hover/foco. Aqui o post vira uma grade:
+   avatar + nome + data no topo, texto em largura total e barra de ações embaixo.
+   Header e aside viram display: contents e TODO filho recebe grid-area
+   (filho sem área cria coluna extra e espreme data e texto). */
+@media screen and (max-width: 767px) {
+  /* Página do tópico: posts de ponta a ponta, sem cartão dentro de cartão */
+  main.page__topic--show { padding-left: 0; padding-right: 0 }
+  .page__topic--show .sidebar2 > div > :not(.panelV2) { margin-left: 12px; margin-right: 12px }
+  .page__topic--show .panelV2 { border-left: 0; border-right: 0; border-radius: 0 }
+  .page__topic--show .panel__header { border-radius: 0 }
+  .page__topic--show .panel__heading { overflow-wrap: anywhere }
+  .page__topic--show .form__button { min-height: 44px }
+  .panel__body:has(> .topic-posts) { padding: 0 }
+
+  /* Lista: posts separados por um fio em vez de cartões com sombra */
+  .topic-posts { row-gap: 0 }
+  .topic-posts > li + li { border-top: 1px solid var(--lc-line) }
+
+  .post.post {
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    grid-template-rows: none;
+    grid-template-areas:
+      "fig    autor  num"
+      "fig    data   gorj"
+      "fig    titulo titulo"
+      "topico topico topico"
+      "txt    txt    txt"
+      "assin  assin  assin"
+      "acao   acao   acao";
+    grid-auto-columns: 0;
+    column-gap: 10px;
+    row-gap: 0;
+    padding: 14px 14px 6px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    overflow: visible
+  }
+  .post.post > *,
+  .post .post__header > *,
+  .post .post__aside > * { min-width: 0 }
+  .post .post__header,
+  .post .post__aside { display: contents }
+
+  .post .post__figure { grid-area: fig; align-self: start; width: 40px; margin: 2px 0 0 }
+  .post .post__avatar { width: 40px; height: 40px; object-fit: cover; border-radius: 50% }
+  .post .post__author {
+    grid-area: autor;
+    align-self: end;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+  .post .post__datetime {
+    grid-area: data;
+    align-self: start;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--lc-muted);
+    white-space: nowrap
+  }
+  .post .post__author-title {
+    grid-area: titulo;
+    display: block;
+    margin: 2px 0 0;
+    font-size: 12px;
+    font-style: italic;
+    line-height: 1.35;
+    text-align: left;
+    color: var(--lc-muted);
+    overflow-wrap: break-word
+  }
+  .post .post__topic {
+    grid-area: topico;
+    margin: 8px 0 0;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--lc-muted);
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+  .post .post__author-join,
+  .post .post__author-topics { display: none }
+  .post .post__author-posts,
+  .post .post__tip-stats {
+    justify-self: end;
+    gap: 4px;
+    margin: 0;
+    font-size: 12px;
+    color: var(--lc-muted);
+    white-space: nowrap
+  }
+  .post .post__author-posts { grid-area: num; align-self: end }
+  .post .post__tip-stats { grid-area: gorj; align-self: start }
+
+  /* Corpo: 16px / 1,6 em largura total */
+  .post .post__content {
+    grid-area: txt;
+    margin: 10px 0 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-wrap: break-word
+  }
+  .post__content h1, .post__content h2,
+  .post__content h3, .post__content h4 { margin: 1em 0 .4em; font-size: 18px; line-height: 1.3 }
+  .post__content > :first-child { margin-top: 0 }
+  .post__content p { margin: 0 0 .75em }
+  /* Só limita a largura: display: block quebraria emoticons inline,
+     e height: auto num iframe o deixaria com 150px */
+  .post__content img,
+  .post__content video { max-width: 100%; height: auto }
+  .post__content iframe { max-width: 100% }
+  .post__content table { display: block; max-width: 100%; overflow-x: auto }
+  .post__content pre { padding: 10px 12px; font-size: 13px; white-space: pre-wrap; word-break: break-word }
+  .post__content code { font-size: .9em; word-break: break-word }
+  .post__content blockquote { margin: 10px 0; padding: 8px 12px; font-size: 15px }
+  .post__content ul,
+  .post__content ol { margin: 0 0 .75em; padding-left: 1.3em }
+  .post__content li + li { margin-top: .25em }
+
+  /* Assinatura: largura total; o selo agora corta o fio sobre o fundo do painel */
+  .post .post__footer {
+    grid-area: assin;
+    margin: 12px 0 0;
+    padding: 18px 0 8px;
+    line-height: 1.5;
+    overflow-wrap: anywhere
+  }
+  .post .post__footer::before { background: var(--panel-bg) }
+  .post .post__signature img { max-width: 100%; max-height: 120px; width: auto; height: auto }
+
+  /* Barra de ações sempre à mostra, alvos de 44px; gorjeta à esquerda */
+  .post .post__toolbar-overflow { display: none }
+  .post .post__toolbar {
+    grid-area: acao;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2px;
+    margin: 6px -8px 0;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    border-radius: 0
+  }
+  .post .post__toolbar-item { margin: 0 }
+  .post .post__toolbar-item:first-child { margin-right: auto }
+  .post .post__toolbar button,
+  .post .post__toolbar a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: auto;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 10px;
+    font-size: 14px;
+    border-radius: 6px
+  }
+  .post .post__toolbar button:active,
+  .post .post__toolbar a:active { background-color: var(--post-toolbar-hover-bg) }
+  .post .post__tip { flex-direction: row; align-items: center; gap: 4px }
+  .post .post__tip-input { width: 64px; min-height: 36px; margin: 0; font-size: 16px }
+
+  /* 16px nos campos evita o zoom automático do iPhone ao focar */
+  .form__text,
+  .form__textarea,
+  .form__select,
+  textarea { font-size: 16px }
+}
+
 /* ---- Paginação: botão atual é a fita em destaque ---- */
 .pagination__current,
 .pagination .active > span {
