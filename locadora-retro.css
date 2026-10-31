@@ -1316,6 +1316,44 @@ h1, h2, h3,
   color: #fff;
   box-shadow: 3px 3px 0 #1a1236, 0 4px 10px rgba(0, 0, 0, .45)
 }
+/* Mobile: o grid original tem 6 colunas e 550px de altura fixa. Na tela
+   estreita as colunas ficam com ~60px, o título quebra palavra por palavra e
+   as colunas 1fr esticam com o conteúdo, vazando o painel. Aqui vira uma
+   grade de 2 colunas: o 1º item ocupa a largura toda, os outros 8 em pares. */
+@media screen and (max-width: 767px) {
+  .random__media {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-template-areas: none;
+    grid-auto-rows: 140px;
+    height: auto;
+    gap: 2px
+  }
+  .random__media > a {
+    grid-area: auto;
+    min-width: 0;
+    overflow: hidden
+  }
+  .random__media > a:first-child {
+    grid-column: 1 / -1;
+    grid-row: span 2 /* hero de 280px */
+  }
+  .random__media > a > span {
+    font-size: 13px;
+    margin: 0 0 8px 8px
+  }
+  .random__media .media__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    font-size: 12px;
+    line-height: 1.3
+  }
+  .random__media > a:first-child .media__title { font-size: 14px }
+}
 
 /* Cards de torrent */
 .torrent-card { border-radius: var(--lc-radius); overflow: clip }
