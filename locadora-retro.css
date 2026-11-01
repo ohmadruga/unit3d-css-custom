@@ -970,10 +970,11 @@ h1, h2, h3,
   transition: transform .2s ease, box-shadow .2s ease
 }
 .data-table > tbody > tr.torrent-search--list__sticky-row:nth-child(even) { transform: rotate(.12deg) }
-/* Sem o fio entre linhas dentro da etiqueta; a primeira célula abre espaço
-   para a listra */
+/* Sem o fio entre linhas dentro da etiqueta */
 .data-table > tbody > tr.torrent-search--list__sticky-row > td { border-bottom: 0 }
-.data-table > tbody > tr.torrent-search--list__sticky-row > td:first-child { padding-left: 30px }
+/* Espaço da listra no próprio grid da linha (não numa célula): no tablet e no
+   celular o grid muda e nome, idade e seeders também começam na borda */
+.data-table > tbody > tr.torrent-search--list__sticky-row { padding-left: 18px }
 /* Hover: a etiqueta descola um pouco (sem o filete ciano, que cobriria a
    listra). z-index para o popup da capa não ficar sob a linha seguinte */
 .data-table > tbody > tr.torrent-search--list__sticky-row:hover {
@@ -1003,11 +1004,6 @@ h1, h2, h3,
   background: var(--lc-vhs-yellow);
   border-radius: 3px;
   box-shadow: 2px 2px 0 var(--lc-vhs-red), 0 3px 8px rgba(0, 0, 0, .45)
-}
-/* Tablet/celular: a linha vira duas fileiras e a idade abre a segunda; ela
-   também precisa sair de baixo da listra */
-@media screen and (max-width: 1200px) {
-  .data-table > tbody > tr.torrent-search--list__sticky-row > .torrent-search--list__age { padding-left: 30px }
 }
 /* Celular: sem inclinação, sem granulado e margem menor */
 @media screen and (max-width: 767px) {
