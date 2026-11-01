@@ -29,6 +29,10 @@
       var(--lc-vhs-orange) 6px 12px,
       var(--lc-vhs-yellow) 12px 18px,
       transparent 18px);
+  /* granulado claro e sutil do papel das etiquetas (créditos, destaques) */
+  --lc-label-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .12 0 0 0 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* selo das linhas destacadas (sticky) na lista de torrents */
+  --lc-sticky-sticker: "DESTAQUE";
   --lc-glow-pink: 0 0 6px rgba(255, 79, 154, .7), 0 0 18px rgba(255, 79, 154, .35);
   --lc-glow-cyan: 0 0 6px rgba(62, 230, 255, .7), 0 0 18px rgba(62, 230, 255, .3);
   --lc-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -939,7 +943,83 @@ h1, h2, h3,
 .torrent-search--list__sticky-row td { background-color: transparent !important }
 .data-table > tbody > tr:nth-child(even) { background-color: var(--data-table-tr-even-bg) }
 .data-table > tbody > tr:hover { background-color: var(--data-table-tr-hover-bg) }
-.data-table > tbody > tr.torrent-search--list__sticky-row { background-color: var(--torrent-row-sticky-bg) }
+
+/* ---- Torrents destacados (sticky): etiqueta colada na prateleira ----
+   A linha inteira vira uma etiqueta no padrão dos créditos: listra da locadora
+   na borda esquerda, papel roxo translúcido com granulado e selo amarelo no
+   topo. A linha é um grid (não table-row), então aceita margem, raio,
+   transform e position. Capa, formato e números ficam como estão */
+.data-table > tbody > tr.torrent-search--list__sticky-row {
+  --lc-label-paper: #1f1d4a8f;
+  --lc-label-paper-edge: #141236;
+  position: relative;
+  margin: 10px 12px;
+  border-radius: 3px;
+  background:
+    var(--lc-label-stripe) left top / 18px 100% no-repeat,
+    var(--lc-label-grain),
+    radial-gradient(130% 160% at 50% 40%, var(--lc-label-paper) 55%, var(--lc-label-paper-edge));
+  box-shadow:
+    inset 0 0 0 1px var(--lc-line),
+    inset 0 1px 0 rgba(255, 255, 255, .05),
+    inset 0 0 22px rgba(0, 0, 0, .35),
+    0 8px 18px rgba(0, 0, 0, .45),
+    0 2px 4px rgba(0, 0, 0, .3);
+  /* coladas meio tortas, alternando o lado */
+  transform: rotate(-.15deg);
+  transition: transform .2s ease, box-shadow .2s ease
+}
+.data-table > tbody > tr.torrent-search--list__sticky-row:nth-child(even) { transform: rotate(.12deg) }
+/* Sem o fio entre linhas dentro da etiqueta; a primeira célula abre espaço
+   para a listra */
+.data-table > tbody > tr.torrent-search--list__sticky-row > td { border-bottom: 0 }
+.data-table > tbody > tr.torrent-search--list__sticky-row > td:first-child { padding-left: 30px }
+/* Hover: a etiqueta descola um pouco (sem o filete ciano, que cobriria a
+   listra). z-index para o popup da capa não ficar sob a linha seguinte */
+.data-table > tbody > tr.torrent-search--list__sticky-row:hover {
+  z-index: 2;
+  transform: translateY(-2px) rotate(-.15deg);
+  box-shadow:
+    inset 0 0 0 1px rgba(181, 140, 255, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .07),
+    inset 0 0 22px rgba(0, 0, 0, .3),
+    0 14px 28px rgba(0, 0, 0, .55),
+    0 0 18px rgba(255, 201, 60, .12)
+}
+/* Selo amarelo no topo, no padrão do adesivo do Random Media */
+.data-table > tbody > tr.torrent-search--list__sticky-row::after {
+  content: var(--lc-sticky-sticker);
+  position: absolute;
+  top: -8px;
+  right: 18px;
+  padding: 2px 8px 0;
+  transform: rotate(2deg);
+  pointer-events: none;
+  font-family: var(--lc-font-display);
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: .1em;
+  color: #1a1236;
+  background: var(--lc-vhs-yellow);
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 var(--lc-vhs-red), 0 3px 8px rgba(0, 0, 0, .45)
+}
+/* Tablet/celular: a linha vira duas fileiras e a idade abre a segunda; ela
+   também precisa sair de baixo da listra */
+@media screen and (max-width: 1200px) {
+  .data-table > tbody > tr.torrent-search--list__sticky-row > .torrent-search--list__age { padding-left: 30px }
+}
+/* Celular: sem inclinação, sem granulado e margem menor */
+@media screen and (max-width: 767px) {
+  .data-table > tbody > tr.torrent-search--list__sticky-row {
+    margin: 10px 4px;
+    background:
+      var(--lc-label-stripe) left top / 18px 100% no-repeat,
+      radial-gradient(130% 160% at 50% 40%, var(--lc-label-paper) 55%, var(--lc-label-paper-edge));
+    transform: none !important
+  }
+  .data-table > tbody > tr.torrent-search--list__sticky-row::after { right: 10px; font-size: 13px }
+}
 
 /* Botões de ícone em tabelas: padding menor para não quebrar linha (base: 14px) */
 .data-table .data-table__actions { gap: 10px }
@@ -1255,7 +1335,7 @@ h1, h2, h3,
       rgba(181, 140, 255, .14) calc(var(--lc-label-row) - 1px) var(--lc-label-row))
       left 0 top var(--lc-label-band) / 100% 100%,
     /* granulado claro, bem sutil */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .12 0 0 0 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    var(--lc-label-grain),
     /* bordas um pouco mais escuras */
     radial-gradient(130% 110% at 50% 40%, var(--lc-label-paper) 55%, var(--lc-label-paper-edge));
   background-attachment: local, local, local, scroll;
