@@ -31,8 +31,9 @@
       transparent 18px);
   /* granulado claro e sutil do papel das etiquetas (créditos, destaques) */
   --lc-label-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .12 0 0 0 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  /* selo das linhas destacadas (sticky) na lista de torrents */
-  --lc-sticky-sticker: "DESTAQUE";
+  /* selo das linhas destacadas (sticky) na lista de torrents ("IMPERDÍVEL";
+     \00CD = Í, escapado porque o arquivo não declara @charset) */
+  --lc-sticky-sticker: "IMPERD\00CDVEL";
   --lc-glow-pink: 0 0 6px rgba(255, 79, 154, .7), 0 0 18px rgba(255, 79, 154, .35);
   --lc-glow-cyan: 0 0 6px rgba(62, 230, 255, .7), 0 0 18px rgba(62, 230, 255, .3);
   --lc-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -993,7 +994,7 @@ h1, h2, h3,
   position: absolute;
   top: -8px;
   right: 18px;
-  padding: 2px 8px 0;
+  padding: 4px 8px 0;
   transform: rotate(2deg);
   pointer-events: none;
   font-family: var(--lc-font-display);
