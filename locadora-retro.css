@@ -31,9 +31,10 @@
       transparent 18px);
   /* granulado claro e sutil do papel das etiquetas (créditos, destaques) */
   --lc-label-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .12 0 0 0 -.04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  /* selo das linhas destacadas (sticky) na lista de torrents ("IMPERDÍVEL";
-     \00CD = Í, escapado porque o arquivo não declara @charset) */
-  --lc-sticky-sticker: "IMPERD\00CDVEL";
+  /* selo das linhas destacadas (sticky) na lista de torrents: uma estrela
+     (\2605 = ★, escapado porque o arquivo não declara @charset). Aceita texto
+     curto também, ex.: "IMPERD\00CDVEL" (\00CD = Í) */
+  --lc-sticky-sticker: "\2605";
   /* adesivo no estojo do Featured Torrents */
   --lc-featured-sticker: "DICA DA CASA";
   --lc-glow-pink: 0 0 6px rgba(255, 79, 154, .7), 0 0 18px rgba(255, 79, 154, .35);
@@ -1027,18 +1028,26 @@ h1, h2, h3,
     0 14px 28px rgba(0, 0, 0, .55),
     0 0 18px rgba(255, 201, 60, .12)
 }
-/* Selo amarelo no topo, no padrão do adesivo do Random Media */
+/* Selo amarelo no topo, no padrão do adesivo do Random Media. Por padrão só
+   uma estrela: o texto fica para o "DICA DA CASA" do Featured. min-width
+   deixa a estrela num quadradinho e ainda estica se a variável tiver texto */
 .data-table > tbody > tr.torrent-search--list__sticky-row::after {
   content: var(--lc-sticky-sticker);
   position: absolute;
   top: -8px;
   right: 18px;
-  padding: 4px 8px 0;
-  transform: rotate(2deg);
+  box-sizing: border-box;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  transform: rotate(6deg);
   pointer-events: none;
-  font-family: var(--lc-font-display);
-  font-size: 14px;
-  line-height: 1.2;
+  /* Bebas não tem ★: a fonte do corpo (ou a do sistema) desenha a estrela */
+  font-family: var(--lc-font-display), var(--lc-font-body);
+  font-size: 15px;
+  line-height: 1;
   letter-spacing: .1em;
   color: #1a1236;
   background: var(--lc-vhs-yellow);
@@ -1054,7 +1063,7 @@ h1, h2, h3,
       radial-gradient(130% 160% at 50% 40%, var(--lc-label-paper) 55%, var(--lc-label-paper-edge));
     transform: none !important
   }
-  .data-table > tbody > tr.torrent-search--list__sticky-row::after { right: 10px; font-size: 13px }
+  .data-table > tbody > tr.torrent-search--list__sticky-row::after { right: 10px }
 }
 
 /* Botões de ícone em tabelas: padding menor para não quebrar linha (base: 14px) */
