@@ -759,8 +759,12 @@ h1, h2, h3,
 }
 .top-nav__branding {
   display: block;
+  margin-right: 12px;
   background: url("https://lcdimg.locadora.cc/01UHF6OF.png") left center / contain no-repeat;
-  filter: drop-shadow(0 0 6px rgba(255, 79, 154, .55)) drop-shadow(0 0 16px rgba(62, 230, 255, .25))
+  filter: drop-shadow(0 0 4px rgba(255, 79, 154, .35)) drop-shadow(0 0 10px rgba(62, 230, 255, .15))
+}
+.top-nav.mobile .top-nav__branding {
+  margin: 4px 0 14px
 }
 
 /* ---- Avatar: anel de néon nas cores da etiqueta VHS ---- */
