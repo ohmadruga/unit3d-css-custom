@@ -950,22 +950,35 @@ h1, h2, h3,
 .data-table > tbody > tr:nth-child(even) { background-color: var(--data-table-tr-even-bg) }
 .data-table > tbody > tr:hover { background-color: var(--data-table-tr-hover-bg) }
 
-/* Última linha no fim do painel: o UNIT3D arredonda só as células do canto,
-   mas o fundo está no tr e vazava reto pela curva do painel.
-   Na lista de torrents o tr é grid e aceita raio direto */
-.torrent-search--list__results:not(:has(+ .pagination)) > .data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type {
+/* Fundo dos filhos vazando pelo canto arredondado do painel. O UNIT3D só
+   arredonda o corpo e as células do canto via variáveis criadas em abr/2025
+   (--panel-body-border-radius, --data-table-border-radius); em versões
+   anteriores elas não existem, então o raio vai direto nos elementos */
+.panelV2 > .panel__body {
+  border-bottom-left-radius: var(--lc-radius-inner);
+  border-bottom-right-radius: var(--lc-radius-inner)
+}
+/* Tabela no fim do painel (sem paginação depois). O fundo da linha está no tr:
+   na lista de torrents o tr é grid e aceita raio direto */
+.panelV2 > .torrent-search--list__results:last-child > .data-table > tbody:last-child > tr:last-child {
   border-radius: 0 0 var(--lc-radius-inner) var(--lc-radius-inner)
 }
-/* Nas tabelas comuns o tr é table-row e ignora o raio: o fundo da última
-   linha volta para as células, cujos cantos o UNIT3D já arredonda */
-.data-table-wrapper:not(.torrent-search--list__results):not(:has(+ .pagination)) > .data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type {
+/* Nas tabelas comuns o tr é table-row e ignora o raio: na última linha o
+   fundo volta para as células e as dos cantos são arredondadas */
+.panelV2 > .data-table-wrapper:not(.torrent-search--list__results):last-child > .data-table > tbody:last-child > tr:last-child {
   background-color: transparent
 }
-.data-table-wrapper:not(.torrent-search--list__results):not(:has(+ .pagination)) > .data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type:nth-child(even) > td {
+.panelV2 > .data-table-wrapper:not(.torrent-search--list__results):last-child > .data-table > tbody:last-child > tr:last-child:nth-child(even) > td {
   background-color: var(--data-table-tr-even-bg)
 }
-.data-table-wrapper:not(.torrent-search--list__results):not(:has(+ .pagination)) > .data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type:hover > td {
+.panelV2 > .data-table-wrapper:not(.torrent-search--list__results):last-child > .data-table > tbody:last-child > tr:last-child:hover > td {
   background-color: var(--data-table-tr-hover-bg)
+}
+.panelV2 > .data-table-wrapper:last-child > .data-table > :last-child > tr:last-child > :first-child {
+  border-bottom-left-radius: var(--lc-radius-inner)
+}
+.panelV2 > .data-table-wrapper:last-child > .data-table > :last-child > tr:last-child > :last-child {
+  border-bottom-right-radius: var(--lc-radius-inner)
 }
 
 /* ---- Torrents destacados (sticky): etiqueta colada na prateleira ----
