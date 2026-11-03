@@ -1107,6 +1107,20 @@ h1, h2, h3,
 .data-table td img { vertical-align: middle }
 .torrent-search--list__poster { padding-top: 12px !important; padding-bottom: 12px !important }
 
+/* ---- Ícones de categoria próprios (só na lista de torrents: é onde a linha
+   traz o data-category-id). Categoria sem regra aqui mantém o ícone do tracker.
+   O ícone original fica invisível mas segura o espaço, então a coluna não muda. ---- */
+tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .torrent-search--list__category > * {
+  visibility: hidden
+}
+tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .torrent-search--list__category {
+  min-height: 32px;
+  background: center 1px / 32px 32px no-repeat
+}
+tr[data-category-id="1"] .torrent-search--list__category { background-image: url("https://lcdimg.locadora.cc/H3ESRYEL.png") } /* Filmes */
+tr[data-category-id="2"] .torrent-search--list__category { background-image: url("https://lcdimg.locadora.cc/OMELV9O3.png") } /* Séries */
+tr[data-category-id="6"] .torrent-search--list__category { background-image: url("https://lcdimg.locadora.cc/PGX87TDK.png") } /* Animes */
+
 /* ---- Capas: fitas na prateleira ---- */
 .torrent-search--poster__poster > img,
 .torrent-search--grouped__poster img,
