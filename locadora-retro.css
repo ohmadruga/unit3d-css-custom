@@ -759,6 +759,8 @@ h1, h2, h3,
 }
 .top-nav__branding {
   display: block;
+  /* sobe só o logo: abre espaço até o menu sem mexer no grid (busca/ícones continuam alinhados) */
+  transform: translateY(-6px);
   background: url("https://lcdimg.locadora.cc/01UHF6OF.png") left center / contain no-repeat;
   filter: drop-shadow(0 0 4px rgba(255, 79, 154, .35)) drop-shadow(0 0 10px rgba(62, 230, 255, .15))
 }
