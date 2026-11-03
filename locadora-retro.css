@@ -508,7 +508,7 @@ main:has(>article>section.meta) {
   column-gap:32px;
   justify-content:space-between;
   width:100%;
-  margin-bottom:16px
+  margin-bottom:.5rem
 }
 .top-nav__main-menus {
   grid-area:right;
