@@ -1114,8 +1114,12 @@ tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .t
   visibility: hidden
 }
 tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .torrent-search--list__category {
-  min-height: 32px;
-  background: center 1px / 32px 32px no-repeat
+  min-height: 42px;
+  background: center 1px / 42px 42px no-repeat
+}
+/* Ícone maior pede etiqueta de formato (resolução/tipo) mais compacta */
+tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) :is(.torrent-search--list__type, .torrent-search--list__resolution) {
+  font-size: 11px
 }
 tr[data-category-id="1"] .torrent-search--list__category { background-image: url("https://lcdimg.locadora.cc/H3ESRYEL.png") } /* Filmes */
 tr[data-category-id="2"] .torrent-search--list__category { background-image: url("https://lcdimg.locadora.cc/OMELV9O3.png") } /* Séries */
