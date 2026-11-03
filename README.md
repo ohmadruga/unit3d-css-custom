@@ -52,5 +52,5 @@ URLs de branch e de faixa (`@1`) ficam em cache no jsDelivr por algumas horas. P
 - O bloco "Layout (herdado)" vem de um CSS anterior e usa `rem` calibrado nessa escala.
 - As cores dos adesivos do Random Media dependem dos IDs de categoria do site (`/similar/{id}.`). Os valores atuais são Séries = 2 e Animes = 6; ajuste para os IDs do seu site.
 - O texto da bolinha do pôster fica na variável `--lc-poster-sticker`.
-- Na lista de torrents, as linhas destacadas (sticky) viram etiquetas coladas. O selo amarelo é uma estrela, definida na variável `--lc-sticky-sticker` (aceita um texto curto no lugar).
-- No Featured Torrents, o texto do adesivo no estojo fica na variável `--lc-featured-sticker`.
+- Na lista de torrents, as linhas destacadas (sticky) viram etiquetas coladas. O texto do selo amarelo fica na variável `--lc-sticky-sticker`.
+- No Featured Torrents, o adesivo no estojo é uma estrela, definida na variável `--lc-featured-sticker` (aceita um texto curto no lugar).
