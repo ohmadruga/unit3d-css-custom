@@ -1114,14 +1114,43 @@ tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .t
   visibility: hidden
 }
 tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .torrent-search--list__category {
+  position: relative;
   min-height: 42px;
   background: center 1px / 42px 42px no-repeat
 }
+/* Tooltip com o nome da categoria (o title original some junto com o ícone escondido) */
+tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .torrent-search--list__category::after {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  z-index: 5;
+  padding: 3px 8px;
+  border: 1px solid var(--lc-line);
+  border-radius: 6px;
+  background: var(--bg-3);
+  color: var(--lc-vhs-yellow);
+  font-family: var(--lc-font-osd);
+  font-size: 15px;
+  line-height: 1.1;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .5);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 3px);
+  transition: opacity .15s, transform .15s
+}
+tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .torrent-search--list__category:hover::after {
+  opacity: 1;
+  transform: translate(-50%, 0)
+}
+tr[data-category-id="1"] .torrent-search--list__category::after { content: "Filmes" }
+tr[data-category-id="2"] .torrent-search--list__category::after { content: "Séries" }
+tr[data-category-id="6"] .torrent-search--list__category::after { content: "Animes" }
 /* Ícone maior pede etiqueta de formato (resolução/tipo) mais compacta:
    fonte de display de videocassete (OSD), estreita e legível em tamanho pequeno */
 tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) :is(.torrent-search--list__type, .torrent-search--list__resolution) {
   font-family: var(--lc-font-osd);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.05;
   letter-spacing: .02em
 }
