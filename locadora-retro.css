@@ -753,9 +753,13 @@ h1, h2, h3,
   text-shadow: var(--lc-glow-pink)
 }
 
-/* Logo com halo de neon */
-.top-nav__branding img,
-.top-nav__site-logo {
+/* Logo próprio (substitui o do tracker) com halo de neon */
+.top-nav__branding > * {
+  display: none
+}
+.top-nav__branding {
+  display: block;
+  background: url("https://lcdimg.locadora.cc/01UHF6OF.png") left center / contain no-repeat;
   filter: drop-shadow(0 0 6px rgba(255, 79, 154, .55)) drop-shadow(0 0 16px rgba(62, 230, 255, .25))
 }
 
@@ -2031,8 +2035,7 @@ h1, h2, h3,
   96% { opacity: .7 }
   97% { opacity: 1 }
 }
-.top-nav__branding:hover img,
-.top-nav__branding:hover .top-nav__site-logo {
+.top-nav__branding:hover {
   animation: lc-flicker 2.4s infinite
 }
 
