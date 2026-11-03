@@ -1108,8 +1108,10 @@ h1, h2, h3,
 .torrent-search--list__poster { padding-top: 12px !important; padding-bottom: 12px !important }
 
 /* Coluna de formato (ícone da categoria + resolução/tipo): anda um pouco para a
-   direita para compensar o recuo do pôster e parecer centralizada */
-.torrent-search--list__format > div { margin-left: 15px }
+   direita para compensar o recuo do pôster e parecer centralizada (só fora do celular) */
+@media screen and (min-width: 768px) {
+  .torrent-search--list__format > div { margin-left: 15px }
+}
 
 /* ---- Ícones de categoria próprios (só na lista de torrents: é onde a linha
    traz o data-category-id). Categoria sem regra aqui mantém o ícone do tracker.
