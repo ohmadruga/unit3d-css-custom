@@ -140,6 +140,7 @@
   --data-table-tr-hover-bg: rgba(62, 230, 255, .07);
   --data-table-tr-odd-bg: transparent;
   --data-table-tfoot-border: none;
+  --data-table-border-radius: var(--lc-radius-inner);
   --dialog-bg: var(--bg-2);
   --dialog-border: 1px solid var(--lc-line);
   --dialog-border-radius: 14px;
@@ -237,6 +238,10 @@
   --panel-fg: var(--text-color);
   --panel-box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
   --panel-border-radius: var(--lc-radius);
+  /* Raio interno (externo − 1px da borda do painel). O tema base deixa estes
+     em 0 e o fundo do corpo/da tabela vazava pelo canto arredondado */
+  --lc-radius-inner: calc(var(--lc-radius) - 1px);
+  --panel-body-border-radius: 0 0 var(--lc-radius-inner) var(--lc-radius-inner);
   --panel-head-bg: var(--bg-4);
   --panel-head-fg: #fff;
   --playlist-card-bg: var(--bg-3);
@@ -944,6 +949,24 @@ h1, h2, h3,
 .torrent-search--list__sticky-row td { background-color: transparent !important }
 .data-table > tbody > tr:nth-child(even) { background-color: var(--data-table-tr-even-bg) }
 .data-table > tbody > tr:hover { background-color: var(--data-table-tr-hover-bg) }
+
+/* Última linha no fim do painel: o UNIT3D arredonda só as células do canto,
+   mas o fundo está no tr e vazava reto pela curva do painel.
+   Na lista de torrents o tr é grid e aceita raio direto */
+.torrent-search--list__results:not(:has(+ .pagination)) > .data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type {
+  border-radius: 0 0 var(--lc-radius-inner) var(--lc-radius-inner)
+}
+/* Nas tabelas comuns o tr é table-row e ignora o raio: o fundo da última
+   linha volta para as células, cujos cantos o UNIT3D já arredonda */
+.data-table-wrapper:not(.torrent-search--list__results):not(:has(+ .pagination)) > .data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type {
+  background-color: transparent
+}
+.data-table-wrapper:not(.torrent-search--list__results):not(:has(+ .pagination)) > .data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type:nth-child(even) > td {
+  background-color: var(--data-table-tr-even-bg)
+}
+.data-table-wrapper:not(.torrent-search--list__results):not(:has(+ .pagination)) > .data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type:hover > td {
+  background-color: var(--data-table-tr-hover-bg)
+}
 
 /* ---- Torrents destacados (sticky): etiqueta colada na prateleira ----
    A linha inteira vira uma etiqueta no padrão dos créditos: listra da locadora
