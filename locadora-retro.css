@@ -34,9 +34,6 @@
   /* selo das linhas destacadas (sticky) na lista de torrents ("IMPERDÍVEL";
      \00CD = Í, escapado porque o arquivo não declara @charset) */
   --lc-sticky-sticker: "IMPERD\00CDVEL";
-  /* adesivo no estojo do Featured Torrents: uma estrela (\2605 = ★, escapado
-     porque o arquivo não declara @charset). Aceita texto curto também */
-  --lc-featured-sticker: "\2605";
   --lc-glow-pink: 0 0 6px rgba(255, 79, 154, .7), 0 0 18px rgba(255, 79, 154, .35);
   --lc-glow-cyan: 0 0 6px rgba(62, 230, 255, .7), 0 0 18px rgba(62, 230, 255, .3);
   --lc-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -1508,7 +1505,7 @@ h1, h2, h3,
    No carrossel o card perde fundo, borda, sinopse e rodapé e vira só o
    estojo, no mesmo desenho do pôster da página do torrent em escala menor:
    fundo do link = plástico, lombada, faixa e créditos; ::before do link =
-   desgaste; ::after da figure = adesivo (--lc-featured-sticker).
+   desgaste. Sem adesivo: o nome do release aparece no hover.
    Tudo fica empilhado na área "poster" do grid:
    - aside (estojo, link para "similares", fica por baixo);
    - body (z 1): o nome aparece no hover e o ::after do link dele cobre o
@@ -1624,36 +1621,6 @@ h1, h2, h3,
 .featured-carousel .torrent-card:hover .torrent-card__image {
   filter: sepia(.15) saturate(.9) contrast(1.06) brightness(1)
 }
-/* Adesivo da indicação do atendente. Por padrão só uma estrela: o texto fica
-   para o "IMPERDÍVEL" dos destacados. min-width deixa a estrela num
-   quadradinho e ainda estica se a variável tiver texto */
-.featured-carousel .torrent-card__figure::after {
-  content: var(--lc-featured-sticker);
-  position: absolute;
-  top: 10px;
-  left: -8px;
-  box-sizing: border-box;
-  min-width: 26px;
-  height: 24px;
-  padding: 0 6px;
-  display: grid;
-  place-items: center;
-  /* Bebas não tem ★: a fonte do corpo (ou a do sistema) desenha a estrela */
-  font-family: var(--lc-font-display), var(--lc-font-body);
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: .08em;
-  white-space: nowrap;
-  color: #1a1236;
-  background: var(--lc-vhs-yellow);
-  border-radius: 3px;
-  box-shadow: 2px 2px 0 var(--lc-vhs-red), 0 3px 8px rgba(0, 0, 0, .5);
-  transform: rotate(-6deg);
-  pointer-events: none;
-  transition: opacity .2s
-}
-.featured-carousel .torrent-card:hover .torrent-card__figure::after,
-.featured-carousel .torrent-card:focus-within .torrent-card__figure::after { opacity: 0 }
 
 /* Nome do release: aparece no hover, por cima do topo da capa */
 .featured-carousel .torrent-card__body {
