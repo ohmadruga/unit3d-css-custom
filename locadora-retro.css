@@ -1118,11 +1118,13 @@ tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .t
   min-height: 42px;
   background: center 1px / 42px 42px no-repeat
 }
-/* Tooltip com o nome da categoria (o title original some junto com o ícone escondido) */
+/* Tooltip com o nome da categoria (o title original some junto com o ícone escondido).
+   Fica à direita do ícone, dentro da própria linha: em cima ele ia para baixo do
+   cabeçalho do painel na primeira linha (ex.: Top Torrents) */
 tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .torrent-search--list__category::after {
   position: absolute;
-  bottom: calc(100% + 4px);
-  left: 50%;
+  top: 22px;
+  left: calc(50% + 25px);
   z-index: 5;
   padding: 3px 8px;
   border: 1px solid var(--lc-line);
@@ -1136,12 +1138,12 @@ tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .t
   box-shadow: 0 6px 16px rgba(0, 0, 0, .5);
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, 3px);
+  transform: translate(-3px, -50%);
   transition: opacity .15s, transform .15s
 }
 tr:is([data-category-id="1"], [data-category-id="2"], [data-category-id="6"]) .torrent-search--list__category:hover::after {
   opacity: 1;
-  transform: translate(-50%, 0)
+  transform: translate(0, -50%)
 }
 tr[data-category-id="1"] .torrent-search--list__category::after { content: "Filmes" }
 tr[data-category-id="2"] .torrent-search--list__category::after { content: "Séries" }
