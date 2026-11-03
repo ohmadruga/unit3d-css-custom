@@ -954,7 +954,8 @@ h1, h2, h3,
    arredonda o corpo e as células do canto via variáveis criadas em abr/2025
    (--panel-body-border-radius, --data-table-border-radius); em versões
    anteriores elas não existem, então o raio vai direto nos elementos */
-.panelV2 > .panel__body {
+.panelV2 > .panel__body,
+.panelV2 > .pagination:last-child {
   border-bottom-left-radius: var(--lc-radius-inner);
   border-bottom-right-radius: var(--lc-radius-inner)
 }
