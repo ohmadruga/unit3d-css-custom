@@ -34,6 +34,8 @@
   /* selo das linhas destacadas (sticky) na lista de torrents ("IMPERDÍVEL";
      \00CD = Í, escapado porque o arquivo não declara @charset) */
   --lc-sticky-sticker: "IMPERD\00CDVEL";
+  /* adesivo no estojo do Featured Torrents */
+  --lc-featured-sticker: "DICA DA CASA";
   --lc-glow-pink: 0 0 6px rgba(255, 79, 154, .7), 0 0 18px rgba(255, 79, 154, .35);
   --lc-glow-cyan: 0 0 6px rgba(62, 230, 255, .7), 0 0 18px rgba(62, 230, 255, .3);
   --lc-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -1500,6 +1502,221 @@ h1, h2, h3,
 /* Cards de torrent */
 .torrent-card { border-radius: var(--lc-radius); overflow: clip }
 .torrent-card__title { font-family: var(--lc-font-display); letter-spacing: .04em; font-size: 21px }
+
+/* ---- Featured: estojos VHS de pé na prateleira de destaques ----
+   No carrossel o card perde fundo, borda, sinopse e rodapé e vira só o
+   estojo, no mesmo desenho do pôster da página do torrent em escala menor:
+   fundo do link = plástico, lombada, faixa e créditos; ::before do link =
+   desgaste; ::after da figure = adesivo (--lc-featured-sticker).
+   Tudo fica empilhado na área "poster" do grid:
+   - aside (estojo, link para "similares", fica por baixo);
+   - body (z 1): o nome aparece no hover e o ::after do link dele cobre o
+     card inteiro, então clicar no estojo abre o torrent;
+   - header (z 2): OSD com resolução, tamanho e seeds no pé da capa.
+   O Alpine rola o trilho pela largura do 1º slide: slide estreito funciona. */
+.featured-carousel {
+  --lc-case-top: 26px;
+  --lc-case-bottom: 20px;
+  --lc-case-side: 6px;
+  --lc-case-spine: 10px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 16px), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 16px), transparent)
+}
+.featured-carousel__slide { flex: 0 0 200px }
+.featured-carousel__feature-details { display: none }
+.featured-carousel .torrent-card {
+  position: relative;
+  height: auto;
+  min-width: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+  contain: none;
+  grid-template-rows: auto;
+  grid-template-columns: 100%;
+  grid-template-areas: 'poster'
+}
+.featured-carousel .torrent-card__rating-and-genres,
+.featured-carousel .torrent-card__plot,
+.featured-carousel .torrent-card__footer { display: none }
+
+/* Estojo */
+.featured-carousel .torrent-card__aside { grid-area: poster }
+.featured-carousel .torrent-card__similar-link {
+  position: relative;
+  display: block;
+  padding: var(--lc-case-top) var(--lc-case-side) var(--lc-case-bottom) var(--lc-case-spine);
+  border-radius: 6px;
+  background:
+    /* código de barras + etiqueta branca */
+    repeating-linear-gradient(90deg, #15141a 0 1px, transparent 1px 2px, #15141a 2px 4px, transparent 4px 5px, #15141a 5px 6px, transparent 6px 8px)
+      right 12px bottom 6px / 28px 7px no-repeat,
+    linear-gradient(#ece6d6, #ece6d6) right 9px bottom 3px / 34px 13px no-repeat,
+    /* créditos em letras miúdas */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='20'%3E%3Cg fill='%23a49c86' fill-opacity='.55'%3E%3Crect x='7%25' y='4' width='52%25' height='1.5'/%3E%3Crect x='10%25' y='8' width='46%25' height='1.2'/%3E%3Crect x='7%25' y='11.5' width='54%25' height='1.2'/%3E%3Crect x='14%25' y='15' width='36%25' height='1.2'/%3E%3C/g%3E%3C/svg%3E")
+      left bottom / 100% var(--lc-case-bottom) no-repeat,
+    /* faixa da distribuidora */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='26'%3E%3Cg stroke='%23d9cfb4' stroke-opacity='.7'%3E%3Cline x1='5%25' x2='95%25' y1='4' y2='4'/%3E%3Cline x1='5%25' x2='95%25' y1='6.5' y2='6.5' stroke-width='.6'/%3E%3Cline x1='5%25' x2='95%25' y1='23' y2='23'/%3E%3C/g%3E%3Ctext x='50%25' y='19' text-anchor='middle' font-family='Impact, Haettenschweiler, Arial Narrow Bold, Arial Black, sans-serif' font-size='12' letter-spacing='.8' fill='%23ece3c8'%3ELOCADORA HOME VIDEO%3C/text%3E%3C/svg%3E")
+      left top / 100% var(--lc-case-top) no-repeat,
+    /* lombada */
+    linear-gradient(90deg, #050508 0 2px, #34323d 3px, #121118 6px, #0b0a10 var(--lc-case-spine))
+      left top / var(--lc-case-spine) 100% no-repeat,
+    /* plástico preto */
+    linear-gradient(160deg, #23222b, #0b0a10 55%, #16151d);
+  /* sombra curta: o trilho do carrossel corta o que passar de 16px */
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .07),
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    0 8px 14px rgba(0, 0, 0, .55);
+  transition: box-shadow .25s ease
+}
+.featured-carousel .torrent-card__similar-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 6px;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg,
+      rgba(255, 255, 255, .16) 0%,
+      rgba(255, 255, 255, .04) 24%,
+      transparent 36%,
+      transparent 72%,
+      rgba(255, 255, 255, .06) 84%,
+      transparent 100%),
+    repeating-linear-gradient(118deg, transparent 0 31px, rgba(255, 255, 255, .05) 31px 32px, transparent 32px 73px),
+    radial-gradient(circle at 0 0, rgba(255, 255, 255, .2), transparent 18px),
+    radial-gradient(circle at 100% 0, rgba(255, 255, 255, .14), transparent 16px),
+    radial-gradient(circle at 0 100%, rgba(255, 255, 255, .14), transparent 16px),
+    radial-gradient(circle at 100% 100%, rgba(255, 255, 255, .18), transparent 20px),
+    var(--lc-label-grain);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, .05)
+}
+.featured-carousel .torrent-card:hover .torrent-card__similar-link {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .1),
+    inset 0 1px 0 rgba(255, 255, 255, .16),
+    0 10px 16px rgba(0, 0, 0, .6),
+    0 0 18px rgba(255, 201, 60, .22)
+}
+.featured-carousel .torrent-card__figure {
+  position: relative;
+  height: auto;
+  margin: 0
+}
+.featured-carousel .torrent-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .6);
+  /* cópia antiga: cores lavadas, como no pôster da página do torrent */
+  filter: sepia(.25) saturate(.8) contrast(1.08) brightness(.95);
+  transition: filter .25s ease
+}
+.featured-carousel .torrent-card:hover .torrent-card__image {
+  filter: sepia(.15) saturate(.9) contrast(1.06) brightness(1)
+}
+/* Adesivo da indicação do atendente */
+.featured-carousel .torrent-card__figure::after {
+  content: var(--lc-featured-sticker);
+  position: absolute;
+  top: 10px;
+  left: -8px;
+  padding: 2px 7px 0;
+  font-family: var(--lc-font-display);
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: .08em;
+  white-space: nowrap;
+  color: #1a1236;
+  background: var(--lc-vhs-yellow);
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 var(--lc-vhs-red), 0 3px 8px rgba(0, 0, 0, .5);
+  transform: rotate(-6deg);
+  pointer-events: none;
+  transition: opacity .2s
+}
+.featured-carousel .torrent-card:hover .torrent-card__figure::after,
+.featured-carousel .torrent-card:focus-within .torrent-card__figure::after { opacity: 0 }
+
+/* Nome do release: aparece no hover, por cima do topo da capa */
+.featured-carousel .torrent-card__body {
+  grid-area: poster;
+  align-self: start;
+  z-index: 1;
+  gap: 0;
+  margin: var(--lc-case-top) var(--lc-case-side) 0 var(--lc-case-spine);
+  padding: 10px 10px 30px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, rgba(7, 6, 22, .94) 55%, transparent);
+  opacity: 0;
+  transition: opacity .2s
+}
+.featured-carousel .torrent-card:hover .torrent-card__body,
+.featured-carousel .torrent-card:focus-within .torrent-card__body { opacity: 1 }
+.featured-carousel .torrent-card__title { font-family: var(--lc-font-body); font-size: 13px }
+.featured-carousel .torrent-card__link {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #fff
+}
+/* Área de clique do torrent cobrindo o estojo inteiro */
+.featured-carousel .torrent-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0
+}
+
+/* OSD no pé da capa */
+.featured-carousel .torrent-card__header {
+  grid-area: poster;
+  align-self: end;
+  z-index: 2;
+  flex-direction: column;
+  gap: 3px;
+  margin: 0 var(--lc-case-side) var(--lc-case-bottom) var(--lc-case-spine);
+  padding: 26px 8px 7px;
+  font-family: var(--lc-font-osd);
+  font-size: 15px;
+  line-height: 1.1;
+  color: var(--lc-ink);
+  background: linear-gradient(180deg, transparent, rgba(7, 6, 22, .92) 55%);
+  border-radius: 0 0 2px 2px;
+  pointer-events: none
+}
+.featured-carousel .torrent-card__header a { pointer-events: auto }
+/* Sem a categoria (e o "•" logo depois); o resto quebra linha em vez de cortar */
+.featured-carousel .torrent-card__left-header { white-space: normal }
+.featured-carousel .torrent-card__category,
+.featured-carousel .torrent-card__category + span { display: none }
+.featured-carousel .torrent-card__seeds { color: var(--lc-green) }
+.featured-carousel .torrent-card__leeches { color: var(--lc-vhs-red) }
+.featured-carousel .torrent-card__completed { color: var(--lc-neon-cyan) }
+.featured-carousel .torrent-card__right-header i { font-size: 10px }
+
+.blocks__featured .panel__action .form__standard-icon-button {
+  border: 1px solid var(--lc-line);
+  border-radius: 8px;
+  transition: color .15s, border-color .15s
+}
+.blocks__featured .panel__action .form__standard-icon-button:hover {
+  color: var(--lc-vhs-yellow);
+  border-color: var(--lc-vhs-yellow)
+}
 
 /* Top 10: contador estilo VCR */
 .top10-poster__download-count {
